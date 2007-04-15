@@ -1,6 +1,6 @@
 <?php
 define('PLANETOID_VERSION', '0.1');
-define('PLANETOID_REVISION', '3');
+define('PLANETOID_REVISION', '4');
 	
 if(SQL_TYPE == 'pgsql') {
 	$db_link= pg_connect('host='.SQL_HOST.' port='.SQL_PORT.' dbname='.SQL_DB_NAME.' user='.SQL_USER.' password='.SQL_PASS)
