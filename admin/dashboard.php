@@ -22,12 +22,17 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 				<h3>New requests</h3>
 				<p class="settings">
 				<?php
+					$unapproved=0;
 					for($n=0; $n < count($feeds_d); $n++) {
 						$feed= $feeds_d[$n];
 						if($feed['approved'] == 0) {
+							$unapproved++;
 							echo "<a href=\"edit-feed.php?id={$feed['id']}\">{$feed['url']}</a><br/>";
 						}
 					};
+					if($unapproved == 0) {
+						echo "<div class=\"info\">Joy! There is no feeds to approve!</div>";
+					}
 					?>
 					</p>
 					<br/>
