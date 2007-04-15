@@ -1,0 +1,12 @@
+[Theme Info]
+# theme.info file uses .desktop-like shematics
+# No space after and before '=' please :), also no tabs before keyword :)
+# Also use UTF-8 file encoding, and UNIX end of line character (\n)
+# Yeah, "[Theme Info]" in first line has to be there ;)
+
+Name=Default
+Comment=Default Planetoid theme
+Version=0.9a
+Icon=icon.png
+Author=Josip Lisec
+AuthorURL=http://josiplisec.net/
