@@ -1,0 +1,376 @@
+body {
+	padding: 0;
+	margin: 0;
+	background: #fff;
+	color: #000;
+	font-size: 13px;
+	font-family: 'Bitstream Vera Sans', 'DejaVu Sans' 'Lucida Sans', 'Verdana', 'Calibri', 'Tahoma', sans-serif;
+}
+
+a {
+	text-decoration: underline;
+	color: #333;
+/* 	background: inherit; */
+}
+
+a:hover {
+	color: #000;
+}
+
+a img {
+	border: 0px !important;
+}
+
+a.link-red, a.link-green, a.link-unhide {
+	padding: 2px;
+}
+
+a.link-red:hover, a.link-green:hover, a.link-unhide:hover {
+	color: #fff;
+	text-decoration: none;
+}
+
+a.link-red:hover {
+	background: #f00;
+}
+
+a.link-green:hover {
+	background: #82d93e;
+}
+
+a.link-unhide:hover {
+	background: #000;
+}
+
+h1, h1 a {
+	color: #333;
+	font-weight: normal;
+	letter-spacing: 5px;
+}
+
+h1 {
+	background: #fff;
+}
+
+h1, h2, h3, h4 {
+	font-weight: normal;
+	text-decoration: none;
+	padding: 0;
+	margin: 0 0 5px 0;
+}
+
+h1, h2, h3 {
+	text-transform: uppercase;
+}
+
+h2, h3 {
+	letter-spacing: 2px;
+}
+
+h2 {
+	color: #555;
+	border-bottom: 1px solid #c0c0c0;
+	padding: 0 0 0 5px;
+}
+
+h3 {
+	color: #888;
+	border-bottom: 1px solid #f3f3f3;
+	padding: 0 0 0 10px;
+}
+
+input[type=text], input[type=password], textarea, select {
+	color: #343434;
+	border-top: 1px solid #848484;
+	border-left: 1px solid #848484;
+	border-right: 1px solid #c0c0c0;
+	border-bottom: 1px solid #c0c0c0;
+	padding: 2px;
+	margin: 3px;
+	background: #fff url(../images/input-bg.png) top left repeat-x;
+}
+
+input[type=text]:focus, input[type=password]:focus, textarea:focus, select:focus {
+	outline: 1px solid #0063dc;
+}
+
+input[type=button], input[type=submit], input[type=reset], input[type=file], button {
+	color: #000;
+	border-bottom: 1px solid #848484;
+	border-right: 1px solid #848484;
+	border-left: 1px solid #c0c0c0;
+	border-top: 1px solid #c0c0c0;
+	padding: 2px;
+	margin: 3px;
+	background: #fefefe;
+}
+
+input[type=reset] {
+	font-size: 9px;
+}
+
+input[type=submit] {
+	background: #ffe;
+}
+
+input[type=button]:focus, input[type=submit]:focus, input[type=reset]:focus, button:focus {
+	outline: 1px solid #0063dc;
+}
+
+input[type=submit]:focus {
+	background: #ffa;
+}
+
+label {
+	clear: both;
+	cursor: pointer;
+	width: 100%;
+	display: block;
+	margin: 5px 0 0 0;
+}
+
+small {
+	font-size: 9px;
+	color: #444;
+}
+
+.info {
+	font-size: 10px;
+	padding: 5px;
+	background: #eee;
+	border-top: 1px dotted #c0c0c0;
+	border-bottom: 1px dotted #c0c0c0;
+	margin: 3px;
+}
+
+#header {
+	padding: 10px;
+	margin: 0 0 20px 0;
+}
+
+#menu ul {
+	list-style: none;
+	padding: 0 0 0 20px;
+	margin: 5px;
+}
+
+#menu ul li {
+	padding: 5px;
+	margin: 0 2px 0 0;
+	display: inline;
+}
+
+#menu ul li:hover {
+	background: #eee;
+}
+
+#menu ul li.current, #menu ul li.current:hover {
+	background: #111 url(../images/menu-current.png) top center no-repeat;
+}
+
+#menu ul li:hover, #menu ul li.current {
+	cursor: pointer;
+}
+
+#menu ul li a {
+	text-decoration: none;
+}
+
+#menu ul li.current a, #menu ul li.current:hover a {
+	color: #fff;
+	background: transparent;
+}
+
+#menu ul li:hover a {
+	color: #111;
+}
+
+#page {
+	background: #fff url(../images/top-divider.png) top left repeat-x;
+	padding: 40px 0 20px 0;
+	margin: 0;
+}
+
+
+#page-area {
+	border: 1px solid #c0c0c0;
+	padding: 10px;
+	background: #fff;
+	width: 90%;
+	margin: auto;
+	display: block;
+}
+
+#page-area p {
+	padding: 5px 15px 5px 15px;
+	margin: 0;
+}
+
+#page-area .settings input[type=text], #page-area .settings textarea {
+	width: 400px;
+}
+
+#page-area .settings textarea {
+	height: 100px;
+}
+
+#page-area form .settings-submit {
+	float: right;
+	margin: 0 5px 5px 0;
+}
+
+#footer {
+/* 	border-top: 1px solid #c0c0c0; */
+/* 	background: #f1f1f1; */
+	padding: 10px 10px 10px 52px;
+	margin: 20px auto 10px auto;
+	width: 300px;
+	font-size: 10px;
+	height: 48px;
+	background: #fff url(../images/footer-logo.png) left center no-repeat;
+}
+
+table {
+	border: 1px solid #c0c0c0;
+	margin: 5px;
+	width: 100%;
+}
+
+table tr.header, table tr.header:hover {
+	background: #f3f3f3 url(../images/tr-header.png) top left repeat-x;
+	font-weight: bold;
+	border-bottom: 1px solid #c0c0c0 !important;
+	cursor: pointer;
+}
+
+table th {
+	text-align: left;
+	padding: 2px 2px 2px 15px;
+}
+
+table tr.header th:active {
+	background: #d3d3d3 url(../images/td-header_down.png) top left repeat-x;
+}
+
+table tr.odd {
+	background: #f8faff;
+}
+
+table tr:hover, table tr.odd:hover {
+	background: #ffe;
+}
+
+/*table tr:active, table tr.odd:active, table tr:focus, table tr.odd:focus {
+	background: #ffe url(../images/tr_down.png) top left repeat-x;
+}*/
+
+table td {
+	border-bottom: 1px solid #f3f3f3;
+	padding: 2px;
+}
+
+table th.num {
+	width: 20px;
+	text-align: right;
+}
+
+table th.sortMisc {
+	background: inherit;
+	text-indent: -15px;
+}
+
+table th.sortAsc {
+	background: url(../images/tr-arrow-up.gif) no-repeat;
+	background-position: 5px center;
+	text-indent: 0px;
+}
+
+table th.sortDesc {
+	background: url(../images/tr-arrow-down.gif) left center no-repeat;
+	background-position: 5px center;
+	text-indent: 0px;
+}
+
+table tr.hidden {
+	opacity: 0.4;
+}
+
+#themes {
+	width: 580px;
+	margin: 10px auto 10px auto;
+}
+
+div.theme-icon {
+	width: 160px;
+	padding: 10px;
+	background: #f3f3f3;
+	border: 1px solid #fff;
+	outline: 1px solid #777;
+	margin: 5px;
+	float: left;
+	cursor: pointer;
+}
+
+div.theme-icon:hover {
+	background: #fefefe;
+}
+
+#curr-theme-box, #curr-them-box:hover {
+	background: #fafafa !important;
+}
+
+.theme-image {
+	margin: 0 0 10px 0;
+	border: 1px solid #fff;
+	outline: 1px solid #c0c0c0;
+}
+
+#curr-theme, .set-theme {
+	float: right;
+	margin: 0 5px 0 0;
+}
+
+.set-theme {
+	visibility: hidden;
+}
+
+div.theme-icon:hover .set-theme {
+	visibility: visible;
+}
+
+div.theme-icon span {
+	width: 100%;
+	clear: both;
+	text-align: center;
+}
+
+#loading, .loading {
+	float:left;
+	margin: 0 5px 0 5px;
+}
+
+#updated {
+	padding: 5px;
+	color: #000;
+	background: #ffe;
+	margin: 0 0 10px 0;
+	border: 1px solid #c0c0c0;
+	cursor: pointer;
+}
+
+#feed-avatar {
+	float: left;
+	margin: 5px;
+	padding: 2px;
+	background: #f3f3f3;
+	border: 1px solid #fff;
+	outline: 1px solid #bebebe;
+	position: absolute;
+	width: 50px;
+}
+
+#error {
+	color: #fff;
+	background: #f00;
+	padding: 5px;
+}

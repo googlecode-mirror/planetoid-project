@@ -1,0 +1,157 @@
+body {
+	padding: 0;
+	margin: 0;
+	background: #fff;
+	color: #000;
+	font-size: 13px;
+	font-family: 'Bitstream Vera Sans', 'DejaVu Sans' 'Lucida Sans', Calibri, Arial, Verdana, Halvetica, sans-serif;
+}
+
+a {
+	text-decoration: underline;
+	color: #333;
+	background: #fff;
+}
+
+a:hover {
+	color: #000;
+}
+
+a img {
+	border: 0px !important;
+}
+
+h1, h1 a {
+	color: #333;
+	font-weight: normal;
+	letter-spacing: 5px;
+	text-transform: uppercase;
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+}
+
+h1 {
+	background: #fff;
+}
+
+small {
+	font-size: 10px;
+}
+
+#articles {
+	margin: auto;
+	float: left;
+	margin: 0 320px 0 0;
+	clear: both;
+}
+
+.article {
+	margin: 10px;
+}
+
+.avatar {
+	background: #f3f3f3;
+	width: 50px;
+	height: 50px;
+	float: left;
+	border: 1px solid #bebebe;
+}
+
+.article-head {
+	padding: 0 0 0 115px;
+	background: url(images/bubble-top.png) no-repeat;
+	background-position: 40px bottom;
+	height: 55px;
+}
+
+.article-head h2, .article-head h3,.article-head h4 {
+	padding: 0;
+	margin: 0 0 0 55px;
+	font-weight: normal;
+	background: #fff;
+}
+
+.article-head h2 {
+	color: #000;
+	font-size: 16px;
+}
+
+.article-head h2 a {
+	text-decoration: none !important;
+}
+
+.article-head h3 {
+	color: #767676;
+	font-size: 12px;
+}
+
+.article-head h4 {
+	color: #a6a6a6;
+	font-size: 9px;
+}
+
+.article-body {
+	background: #fff url(images/post-bg.png) repeat-x;
+	padding: 5px;
+	margin: 0 10px 0px 10px;
+	border: 1px solid #efefef;
+}
+
+.article-body p {
+	padding: 5px;
+	margin: 0;
+}
+
+#sidebar {
+	margin: 0 10px 0 0;
+	padding: 5px;
+	background: #fefefe;
+	border: 2px solid #efefef;
+	width: 300px;
+	float: right;
+	margin: 0 10px 0 -330px;
+}
+
+#sidebar h5 {
+	margin: 0 0 5px 0;
+	padding: 0;
+}
+
+#header {
+	padding: 5px 5px 15px 5px;
+	background: #fff url(images/top-divider.png) repeat-x;
+	background-position: bottom left;
+	margin: 0 0 20px 0;
+}
+
+#footer {
+	border-top: 1px solid #c0c0c0;
+	background: #f1f1f1;
+	padding: 5px;
+	clear: both;
+	height: 45px;
+}
+
+#footer img {
+	float: right;
+	display: block;
+}
+
+#footer img.mozfix {
+	margin: -18px 5px 0 0;
+}
+
+.feed, .opml {
+	padding: 0 0 0 17px;
+	background-position: 2px center;
+	background-repeat: no-repeat;
+}
+
+.feed {
+	background-image: url(../../images/feed.png);
+}
+
+.opml {
+	background-image: url(../../images/opml.png);
+}
