@@ -83,7 +83,7 @@
 			</div>
 			<?php } else {?>
 			<div class="info-info">
-				Submit your feed to <?php echo get_title(); ?> adminstrators if you want it to appear on <?php echo get_title(); ?> homepage.
+				Submit your feed to <?php echo get_title(); ?> administrators if you want it to appear on <?php echo get_title(); ?> homepage.
 			</div>
 			<?php }; ?>
 			<div class="info">

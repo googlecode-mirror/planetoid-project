@@ -23,7 +23,7 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 				<?php }; ?>
 				<h2><img src="inc/images/loading.gif" id="loading" alt="loading" style="display: none;" />Looks</h2>
 				<h3>Themes</h3><div class="info">
-					Change the look of your planet with just a few clicks! With Planetoid themes it really easy!
+					Change the look of your planet with just a few clicks! With Planetoid themes it's really easy!
 				</div>
 				<div id="themes">
 					<?php make_theme_list(); ?>

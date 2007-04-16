@@ -57,7 +57,7 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 						</label>
 							
 						<label for="reg_notify">
-							<input type="checkbox" name="reg_notify" id="reg_notify" <?php echo $notify; ?> />Send me an email when someone submits feed. <small>Email will be sent to administrator only if someone else than him submits an feed.</small></label>
+							<input type="checkbox" name="reg_notify" id="reg_notify" <?php echo $notify; ?> />Send me an email when someone submits feed. <small>Email will be sent to administrator only if someone other than him submits a feed.</small></label>
 					</p>
 					<!--<input type="submit" class="settings-submit" value="Save changes &raquo;" />
 					<br style="clear:both;"/>-->
