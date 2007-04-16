@@ -26,14 +26,14 @@
 			header("Location: ".r_to(0)."&done=true#".r_to(1));
 		} else {
 			if($ajax) {
-				echo 'alert("You have to fill all fields execept avatar\'s URL.");';
+				echo 'alert("All fields except avatar\'s URL are required.");';
 			} else {
 				header("Location: ".r_to(0)."&e=not-all#".r_to(1));
 			}
 		}
 	} else {
 		if($ajax) {
-			echo "window.location= '..login.php';";
+			echo "window.location= '../login.php';";
 		} else {
 			header('Location: ../login');
 		}

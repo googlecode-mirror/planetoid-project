@@ -11,7 +11,7 @@
 		<div id="page">
 			<a href="http://planetoid-project.org"><img src="admin/inc/images/logo-login.png" alt="Planetoid's logo" /></a>
 			<div class="info">
-				Planetoid, an application written in PHP which alows you to easily create &amp; mange your own <a href="http://en.wikipedia.org/wiki/Planet_(blog)">Planet</a>(s)!
+				Planetoid, an application written in PHP which allows you to easily create &amp; manage your own <a href="http://en.wikipedia.org/wiki/Planet_(blog)">Planet</a>(s)!
 			</div>
 			<div class="info-info">
 					<ul>

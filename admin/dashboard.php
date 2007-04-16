@@ -31,13 +31,13 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 						}
 					};
 					if($unapproved == 0) {
-						echo "<div class=\"info\">Joy! There is no feeds to approve!</div>";
+						echo "<div class=\"info\">Joy! There are no feeds to approve!</div>";
 					}
 					?>
 					</p>
 					<br/>
 					<h3>Planetoid Blog</h3>
-					<div class="info">We don't have any blog yet :)</div>
+					<div class="info">We don't have a blog yet :)</div>
 				</div>
 		</div>
 <?php

@@ -114,7 +114,7 @@ echo "
 			</ul>
 			<hr/>
 			<div class=\"info\">
-				Note: You should remove config-config.php, install.php & install_db.php files
+				Note: You should remove config-config.php, install.php &amp; install_db.php files
 			</div>
 			";
 ?>

@@ -9,7 +9,7 @@ var Feeds= {
 		if(opts.url, opts.email) {
 			$.get('add-feed.php', {'url': opts.url, 'avatar': opts.avatar, 'email': opts.email}, function(resp) { eval(resp); });
 		} else {
-			alert("Feed URL and submitters email are requiered.");
+			alert("Feed URL and submitters email are required.");
 		};
 	},
 	

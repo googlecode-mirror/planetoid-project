@@ -33,7 +33,7 @@
 			
 			<hr/>
 			<div class="info">
-				Login details for adminstrator account.
+				Login details for administrator account.
 			</div>
 			
 			<label for="email">Email:</label>
