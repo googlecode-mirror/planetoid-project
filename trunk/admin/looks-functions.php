@@ -4,7 +4,7 @@ function list_themes() {
 	$list= array();
 	if($handle = opendir('../inc/themes')) {
 		while(false != ($file= readdir($handle))) {
-			if(is_dir('../inc/themes/'.$file) && $file != '.' && $file != '..') {
+			if(is_dir('../inc/themes/'.$file) && $file != '.' && $file != '..' && file_exists('../inc/themes/'.$file.'/theme.info')) {
 					$path= '../inc/themes/' . $file .'/theme.info';
 					$_doc= fopen($path, 'r');
 					$doc= fread($_doc, filesize($path));
