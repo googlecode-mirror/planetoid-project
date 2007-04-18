@@ -17,7 +17,7 @@
 					<ul>
 						<li><a href="planetoid.tar.gz" class="highlight">Download latest Planetoid (<?php echo round((filesize('planetoid.tar.gz') * 0.0009765625), 2); ?> kB)</a></li>
 						<li><a href="docs.php">Documents</a></li>
-						<li><a href="/blog">Blog</a></li>
+<!-- 						<li><a href="/blog">Blog</a></li> -->
 						<li><a href="demo/">See demo install</a></li>
 						<li><a href="screenshots.php">Screenshots</a></li>
 						<li><a href="about.php">About Planetoid</a></li>
