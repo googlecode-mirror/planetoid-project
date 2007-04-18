@@ -74,7 +74,7 @@ function list_articles() {
 	// 		}
 			
 			$avatar= sql_action("SELECT avatar FROM feeds WHERE url='$feeds[$n]';");
-			$avatar= $avatar['avatar'];
+			$avatar= urlencode($avatar['avatar']);
 			
 			if(strlen($avatar) < 10) {
 				$avatar= 'inc/images/no-avatar.png';
