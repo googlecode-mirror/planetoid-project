@@ -15,6 +15,37 @@ if(isset($_SESSION['uid']) && isset($_SESSION['ulevel'])) {
 	exit(0);
 };
 	
+if($_GET['lost_pass'] == 'true') {
+ $lost_pass= true;
+} else {
+	$lost_pass= false;
+}
+
+if($_POST['restore_pass'] == 'true') {
+	$current_pass= sql_action("SELECT pass FROM users WHERE email='".sql_escape($_POST['email'])."';");
+	if($current_pass) {
+		$new_pass= hash('md5', $current_pass['pass']);
+		$new_pass= substr($new_pass, 0, 6);
+// 		echo $new_pass;
+		$new_pass= hash('md5', $new_pass);
+		
+		sql_action("UPDATE users SET pass='$new_pass' WHERE email='".sql_escape($_POST['email'])."'");
+		
+		$mail_cont= "Your password has been reset, the new password is: '$new_pass'."
+					."<br/>You can login here: "
+					."<a href=\"".get_home_link()."\">".get_home_link()."</a>"
+					."<br/>---</br/>Powered by <a href=\"http://planetoid-project.org\">Planetoid</a>";
+		
+		mail($_POST['email'], "Planetoid adminstration", $mail_cont, "From: Planetoid <noreplay@planetoid.services> \r\n"
+			."Content-Type: text/html; charset=UTF-8\r\n"
+			."X-Mailer: PHP/" . phpversion());
+		
+		$error= "New password has been sent to your email.";
+	} else {
+		$error= 'There is no user with this email, try again.';
+	}
+}
+
 if(isset($_POST['email']) && isset($_POST['pass']) && (strlen($_POST['email']) + strlen($_POST['email'])) != 0 && $_POST['action'] == 'login') {
 	
 	$user_props= sql_action("SELECT * FROM users WHERE email='".sql_escape($_POST['email'])."' AND pass='".md5(sql_escape($_POST['pass']))."' AND role_level='admin';");
@@ -49,12 +80,16 @@ if(isset($_POST['email']) && isset($_POST['pass']) && (strlen($_POST['email']) +
 			<?php }; ?>
 			<label for="email">Email:</label>
 			<input type="text" name="email" id="email" value="<?php if(isset($_POST['email'])) { echo $_POST['email']; }; ?>" />
+			<?php if(!$lost_pass) { ?>
 			<br/>
 			<label for="pass">Password:</label>
 			<input type="password" name="pass" id="pass" value="<?php if(isset($_POST['pass'])) { echo $_POST['pass']; }; ?>" />
 			<input type="hidden" name="action" value="login" />
-			<p>
-				<input type="submit" value="Login &raquo;" />
+			<?php }; ?>
+			<p style="text-align:right;">
+				<?php if($lost_pass) {?><input type="hidden" name="restore_pass" value="true" /><?php }; ?>
+				<?php if(!$lost_pass) { ?><a href="login.php?lost_pass=true">Lost password?</a><? }; ?>
+				<input type="submit" value="<?php if(!$lost_pass) { ?>Login<?php } else { ?>Submit<?php }; ?> &raquo;" />
 			</p>
 		</form>
 	</body>
