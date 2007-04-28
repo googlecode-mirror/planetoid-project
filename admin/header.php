@@ -19,7 +19,12 @@
 		<div id="menu">
 			<ul>
 				<?php
-				$menu_items= array('Dashboard', 'Feeds', 'Looks', 'Planet');
+				if($_SESSION['ulevel'] == 'admin') {
+					$menu_items= array('Dashboard', 'Feeds', 'Looks', 'Planet');
+				} else {
+					$menu_items= array('Dashboard', 'Feed', 'Account');
+				}
+				
 				for($n=0; $n < count($menu_items); $n++) {
 					$item= $menu_items[$n];
 					$link= strtolower($item).'.php';

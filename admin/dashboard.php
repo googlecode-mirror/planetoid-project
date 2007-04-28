@@ -15,27 +15,31 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 		<div id="page">
 			<div id="page-area">
 				<h2>Dashboard</h2>
-				<div class="info">
+				<!--<div class="info">
 					<strong>This is hello note</strong>
 					Note: ask Mario to write it :)
-				</div>
-				<h3>New requests</h3>
-				<p class="settings">
+				</div>-->
+				<?php if($_SESSION['ulevel'] == 'admin') { ?>
 				<?php
-					$unapproved=0;
+					$unapproved= 0;
+					
 					for($n=0; $n < count($feeds_d); $n++) {
 						$feed= $feeds_d[$n];
 						if($feed['approved'] == 0) {
 							$unapproved++;
-							echo "<a href=\"edit-feed.php?id={$feed['id']}\">{$feed['url']}</a><br/>";
-						}
+							$unapproved_feeds .= "<a href=\"edit-feed.php?id={$feed['id']}\">{$feed['url']}</a><br/>";
+						};
 					};
-					if($unapproved == 0) {
-						echo "<div class=\"info\">Joy! There are no feeds to approve!</div>";
-					}
+					
+					if($unapproved != 0) {
 					?>
-					</p>
-					<br/>
+						<h3>New requests</h3>
+						<p class="settings">
+							<?php echo $unapproved_feeds; ?>
+						</p>
+						<br/>
+					<?php }; ?>
+					<?php }; ?>
 					<h3>Planetoid Blog</h3>
 					<div class="info">We don't have a blog yet :)</div>
 				</div>

@@ -48,7 +48,7 @@ if($_POST['restore_pass'] == 'true') {
 
 if(isset($_POST['email']) && isset($_POST['pass']) && (strlen($_POST['email']) + strlen($_POST['email'])) != 0 && $_POST['action'] == 'login') {
 	
-	$user_props= sql_action("SELECT * FROM users WHERE email='".sql_escape($_POST['email'])."' AND pass='".md5(sql_escape($_POST['pass']))."' AND role_level='admin';");
+	$user_props= sql_action("SELECT * FROM users WHERE email='".sql_escape($_POST['email'])."' AND pass='".md5(sql_escape($_POST['pass']))."';");
 	
 	if(isset($user_props['id'])) { /* Just a check if SQL query did retrun any result */
 		$_SESSION['uid']= $user_props['id'];
