@@ -23,8 +23,8 @@
 				$avatar_flnm= explode('/', $avatar_flnm[1]);
 				$avatar_flnm= $avatar_flnm[0];
 				
-				if(move_uploaded_file($_FILES['avatar']['tmp_name'], '../avatars/'.$avatar_flnm)) {
-					$avatar= "avatars/$avatar_flnm";
+				if(move_uploaded_file($_FILES['avatar']['tmp_name'], '../avatars/'.md5($avatar_flnm))) {
+					$avatar= "avatars/".md5($avatar_flnm);
 				} else {
 					$avatar= 'inc/images/no-avatar.png';
 				}

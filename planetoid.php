@@ -22,22 +22,15 @@ $feeds_d_ch= CACHE_DIR.'/feeds_details.spc';
 	
 if(!are_feeds_cached()) {
 	if(SQL_TYPE == 'pgsql') {
-		$feeds_q= pg_query("SELECT * FROM feeds;");
-		while($feeds_r = pg_fetch_array($feeds_q, NULL, PGSQL_ASSOC)) {
-			if($feeds_r['approved'] == 1) {
-				$feeds[]= $feeds_r['url'];
+		$feeds_q= sql_get_array("SELECT * FROM feeds;");
+		for($n=0; $n < count($feeds_q); $n++) {
+			$feed= $feeds_q[$n];
+			
+			if($feed['approved'] == 1) {
+				$feeds[]= $feed['url'];
 			}
 			
-			$feeds_d[]= $feeds_r;
-		};
-	} else {
-		$feeds_q= mysql_query("SELECT * FROM feeds;");
-		while($feeds_r = mysql_fetch_array($feeds_q, MYSQL_ASSOC)) {
-			if($feeds_r['approved'] == 1) {
-				$feeds[]= $feeds_r['url'];
-			}
-			
-			$feeds_d[]= $feeds_r;
+			$feeds_d[]= $feed;
 		};
 	};
 	
@@ -74,11 +67,11 @@ function list_articles() {
 	// 		}
 			
 			$avatar= sql_action("SELECT avatar FROM feeds WHERE url='$feeds[$n]';");
-			$avatar= urlencode($avatar['avatar']);
+			$avatar= $avatar['avatar'];
 			
-			if(strlen($avatar) < 10) {
-				$avatar= 'inc/images/no-avatar.png';
-			}
+// 			if($avatar != 'inc/images/no-avatar.png') {
+// 				$avatar= urlencode($avatar['avatar']);
+// 			}
 			
 			if($feed[$n]->data) {
 				foreach($feed[$n]->get_items() as $item) {
@@ -178,6 +171,7 @@ function list_feeds() {
 
 function remove_feed($id) {
 	global $feeds, $feeds_d;
+	
 	for($n=0; $n < count($feeds_d); $n++) {
 		if($feeds_d[$n]['id'] == $id) {
 			unset($feeds_d[$n]);
@@ -215,6 +209,7 @@ function is_cached($path) {
 
 function are_feeds_cached() {
 	global $feeds_ch, $feeds_d_ch;
+	
 	if(is_cached($feeds_ch) == true || is_cached($feeds_d_ch) == true) {
 		return true;
 	} else {
@@ -311,6 +306,24 @@ function sql_escape($string) {
 	} else if(SQL_TYPE == 'mysql') {
 		return mysql_escape_string($string);
 	}
+};
+
+function sql_get_array($query) {
+	$resultset= array();
+	
+	if(SQL_TYPE == 'pgsql') {
+		$query= pg_query($query);
+		while($row = pg_fetch_array($query, NULL, PGSQL_ASSOC)) {
+			$resultset[]= $row;
+		}
+	} else {
+		$query= mysql_query($query);
+		while($row = mysql_fetch_array($query, MYSQL_ASSOC)) {
+			$resultset[]= $row;
+		}
+	}
+	
+	return $resultset;
 };
 
 function sql_autoid($table) {
