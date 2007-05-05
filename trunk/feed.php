@@ -1,12 +1,12 @@
-
-<?php
-	include('inc/simplepie/simplepie.inc');
-	include_once('inc/simplepie/idn/idna_convert.class.php');
-	include('config.php');
-	include('planetoid.php');
-	
+<?php	 
+	error_log(0);
 	header('Content-Type: text/xml');
 	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+	
+	include_once('inc/simplepie/idn/idna_convert.class.php');
+	include('inc/simplepie/simplepie.inc');
+	include('config.php');
+	include('planetoid.php');
 ?>
 <!-- generator="planetoid/<?php echo PLANETOID_VERSION; ?>" -->
 <rss version="2.0" 

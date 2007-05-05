@@ -16,8 +16,9 @@
 		if(isset($_POST['url']) && isset($_POST['email']) && isset($_POST['pass'])) {
 			if(isset($_FILES['avatar'])) {
 				$avatar_flnm= basename($_FILES['avatar']['name']);
-				if(move_uploaded_file($_FILES['avatar']['tmp_name'], 'avatars/'.$avatar_flnm)) {
-					$avatar= "avatars/$avatar_flnm";
+				if(move_uploaded_file($_FILES['avatar']['tmp_name'], 'avatars/'.md5($avatar_flnm))) {
+					$new_avatar= substr(md5($avatar_flnm.time()), 0, 6);
+					$avatar= "avatars/{$new_avatar}";
 				} else {
 					$avatar= 'inc/images/no-avatar.png';
 				}
