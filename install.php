@@ -26,7 +26,7 @@
 			<input type="text" name="desc" id="desc" /><br/>
 			
 			<label for="dir">Absolute path to Planetoid files:</label>
-			<input type="text" name="dir" id="dir" value="<?php echo dirname(__FILE__); ?>" /><br/>
+			<input type="text" name="dir" id="dir" value="<?=dirname(__FILE__)?>" /><br/>
 			
 			<label for="link">Link to homepage:</label>
 			<input type="text" name="link" id="link" value="http://" /><br/>

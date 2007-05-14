@@ -6,7 +6,7 @@ var Feeds= {
 	},
 	
 	add: function(opts) {
-		if(opts.url, opts.email) {
+		if(opts.url && opts.email) {
 			$.get('add-feed.php', {'url': opts.url, 'avatar': opts.avatar, 'email': opts.email}, function(resp) { eval(resp); });
 		} else {
 			alert("Feed URL and submitters email are required.");
@@ -16,12 +16,26 @@ var Feeds= {
 	hide: function(id) {
 		if(id) {
 			$.get('hide-feed.php', {'id': id, 'ajax': true}, function(resp) { eval(resp); });
-		}
+		};
 	},
 	
 	approve: function(id) {
 		if(id) {
 			$.get('approve-feed.php', {'id': id, 'ajax': true}, function(resp) { eval(resp); });
+		};
+	}
+};
+
+var Plugin= {
+	activate: function(dir) {
+		if(dir) {
+			$.get('activate-plugin.php', {'dir': dir, 'ajax': true}, function(resp) { eval(resp); });
+		};
+	},
+	
+	deactivate: function(dir) {
+		if(dir) {
+			$.get('deactivate-plugin.php', {'dir': dir, 'ajax': true}, function(resp) { eval(resp); });
 		}
 	}
 };

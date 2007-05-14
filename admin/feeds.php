@@ -14,13 +14,11 @@ if(isset($_SESSION['uid']) && isset($_SESSION['ulevel'])) {
 ?>
 		<div id="page">
 			<div id="page-area">
-				<?php 
-					if($_GET['done'] == 'true') {
-				?>
+				<?php if($_GET['done'] == 'true'): ?>
 				<div id="updated">
 					Settings have been saved.
 				</div>
-				<?php }; ?>
+				<?php endif; ?>
 				<h2><img src="inc/images/loading.gif" id="loading" alt="loading" style="display: none;" />Feeds</h2>
 				<a name="manage"></a>
 				<h3>Manage feeds</h3>
@@ -28,19 +26,17 @@ if(isset($_SESSION['uid']) && isset($_SESSION['ulevel'])) {
 					Here you can add, remove, reject and approve feeds.
 				</div>
 				<p class="settings">
-					<?php make_feed_table(); ?>
+					<?=make_feed_table()?>
 				</p>
 				<br/>
 <!-- 				<input type="submit" value="Add feed &raquo;" class="settings-submit" /> -->
 				<a name="add"></a>
 				<h3>Add new feed</h3>
-				<?php 
-					if($_GET['e'] == 'not-all') {
-				?>
+				<?php if($_GET['e'] == 'not-all'): ?>
 				<div id="error">
 					You have to fill all fields
 				</div>
-				<?php }; ?>
+				<?php endif; ?>
 				<form action="add-feed.php" method="POST" id="add-feed" onsubmit="Feeds.add();return false;" enctype="multipart/form-data">
 					<p class="settings">
 						<label for="url">Feed URL:</label>
@@ -61,7 +57,7 @@ if(isset($_SESSION['uid']) && isset($_SESSION['ulevel'])) {
 						</select>
 					</p>
 					<p class="settings">
-						<input type="hidden" value="<?php echo $curr_page; ?>#add" name="r_to" />
+						<input type="hidden" value="<?=$curr_page?>" name="r_to" />
 						<input type="submit" value="Add feed &raquo;" />
 						<input type="reset" value="Reset form" />
 					</p>
@@ -76,10 +72,10 @@ if(isset($_SESSION['uid']) && isset($_SESSION['ulevel'])) {
 				<form action="setting-set.php" method="POST">
 					<p class="settings">
 						<label for="title_regexp">Filter articles by title:</label>
-						<input type="text" name="title_regexp" id="title_regexp" value="<?php echo get_setting_value('title_regexp'); ?>" />
+						<input type="text" name="title_regexp" id="title_regexp" value="<?=get_setting_value('title_regexp')?>" />
 						
 						<label for="content_regexp">Filter articles by content:</label>
-						<input type="text" name="content_regexp" id="content_regexp" value="<?php echo get_setting_value('content_regexp'); ?>" />
+						<input type="text" name="content_regexp" id="content_regexp" value="<?=get_setting_value('content_regexp')?>" />
 						
 						<label for="posts_num">How many posts to show on homepage:</label>
 						<select id="posts_num" name="posts_num">
@@ -104,7 +100,7 @@ if(isset($_SESSION['uid']) && isset($_SESSION['ulevel'])) {
 					</p>
 					
 					<p class="settings">
-						<input type="hidden" value="<?php echo $curr_page; ?>#filters" name="r_to" />
+						<input type="hidden" value="<?=$curr_page?>" name="r_to" />
 						<input type="submit" value="Save &raquo;" />
 					</p>
 				</form>
@@ -116,5 +112,4 @@ if(isset($_SESSION['uid']) && isset($_SESSION['ulevel'])) {
 } else {
 	header("Location: ../login.php");
 }
-
 ?>

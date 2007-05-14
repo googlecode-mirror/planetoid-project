@@ -1,25 +1,7 @@
 <?php
 
-function list_themes() {
-	$list= array();
-	if($handle = opendir('../inc/themes')) {
-		while(false != ($file= readdir($handle))) {
-			if(is_dir('../inc/themes/'.$file) && $file != '.' && $file != '..' && file_exists('../inc/themes/'.$file.'/theme.info')) {
-					$path= '../inc/themes/' . $file .'/theme.info';
-					$_doc= fopen($path, 'r');
-					$doc= fread($_doc, filesize($path));
-					$list[]= array(parse_info_file($doc, 'Theme Info'), $file);
-					fclose($_doc);
-			}
-		}
-		closedir($handle);
-	}
-	
-	return $list;
-}
-
 function make_theme_list() {
-	$themes= list_themes();
+	$themes= list_info_dir('../inc/themes', 'theme');
 	$current_theme= get_setting_value("theme_dir_name");
 	
 	for($n=0; $n < count($themes); $n++) {

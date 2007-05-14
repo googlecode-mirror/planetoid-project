@@ -4,9 +4,7 @@
 	include('planetoid.php');
 	$allow_this= get_setting_value('show_reg_button');
 	
-	if($allow_this == 'true' || $allow_this == 'on') {
-		$allow= true;
-	} else {
+	if($allow_this != 'on') {
 		sql_close();
 		header('Location: index.php');
 		exit(0);
@@ -16,10 +14,12 @@
 		if(isset($_POST['url']) && isset($_POST['email']) && isset($_POST['pass'])) {
 			if(isset($_FILES['avatar'])) {
 				$avatar_flnm= basename($_FILES['avatar']['name']);
-				if(move_uploaded_file($_FILES['avatar']['tmp_name'], 'avatars/'.md5($avatar_flnm))) {
-					$new_avatar= substr(md5($avatar_flnm.time()), 0, 6);
-					$avatar= "avatars/{$new_avatar}";
-				} else {
+				$avatar_name= substr(md5($avatar_flnm.time()), 0, 6);
+				$ext= explode('.', $avatar_flnm);
+				
+				$avatar= "avatars/{$avatar_name}.{$ext[1]}";
+				
+				if(!move_uploaded_file($_FILES['avatar']['tmp_name'], $avatar)) {
 					$avatar= 'inc/images/no-avatar.png';
 				}
 			} else {
@@ -66,7 +66,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head profile="http://gmpg.org/xfn/11">
 		<meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
-		<title><?php echo get_title(); ?> &raquo; Submit feed</title>
+		<title><?=get_title()?> &raquo; Submit feed</title>
 		<link href="admin/inc/css/login-install.css" rel="stylesheet" />
 		<link href="admin/inc/favicon.ico" rel="icon" />
 		<link href="admin/inc/favicon.ico" rel="shortcut icon" />
@@ -76,15 +76,15 @@
 			<a href="http://planetoid-project.org"><img src="admin/inc/images/logo-login.png" alt="Planetoid's logo" /></a>
 			<?php if(isset($error)) { ?>
 			<div class="error">
-				<?php echo $error; ?>
+				<?=$error?>
 			</div>
 			<?php } else if(isset($msg)) { ?>
 			<div class="info-info">
-				<?php echo $msg; ?>
+				<?=$msg?>
 			</div>
 			<?php } else {?>
 			<div class="info-info">
-				Submit your feed to <?php echo get_title(); ?> administrators if you want it to appear on <?php echo get_title(); ?> homepage.
+				Submit your feed to <?=get_title()?> administrators if you want it to appear on <?=get_title()?> homepage.
 			</div>
 			<?php }; ?>
 			<div class="info">

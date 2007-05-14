@@ -15,12 +15,11 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 		<div id="page">
 			<div id="page-area">
 				<h2>Dashboard</h2>
-				<!--<div class="info">
+				<?php/*<div class="info">
 					<strong>This is hello note</strong>
 					Note: ask Mario to write it :)
-				</div>-->
-				<?php if($_SESSION['ulevel'] == 'admin') { ?>
-				<?php
+				</div>*/?>
+				<?php if($_SESSION['ulevel'] == 'admin'):
 					$unapproved= 0;
 					
 					for($n=0; $n < count($feeds_d); $n++) {
@@ -31,15 +30,14 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 						};
 					};
 					
-					if($unapproved != 0) {
+					if($unapproved != 0):
 					?>
 						<h3>New requests</h3>
 						<p class="settings">
-							<?php echo $unapproved_feeds; ?>
+							<?=$unapproved_feeds?>
 						</p>
 						<br/>
-					<?php }; ?>
-					<?php }; ?>
+					<?php endif;endif; ?>
 					<h3>Planetoid Blog</h3>
 					<div class="info">We don't have a blog yet :)</div>
 				</div>

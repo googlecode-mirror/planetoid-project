@@ -18,14 +18,14 @@
 				include('feeds-functions.php');
 			}
 			
-			if(strlen($_FILES['avatar']) > 5) {
-				$avatar_flnm= explode('http://', $_POST['url']);
-				$avatar_flnm= explode('/', $avatar_flnm[1]);
-				$avatar_flnm= $avatar_flnm[0];
+			if(isset($_FILES['avatar'])) {
+				$avatar_flnm= basename($_FILES['avatar']['name']);
+				$avatar_name= substr(md5($avatar_flnm.time()), 0, 6);
+				$ext= explode('.', $avatar_flnm);
 				
-				if(move_uploaded_file($_FILES['avatar']['tmp_name'], '../avatars/'.md5($avatar_flnm))) {
-					$avatar= "avatars/".md5($avatar_flnm);
-				} else {
+				$avatar= "avatars/{$avatar_name}.{$ext[1]}";
+				
+				if(!move_uploaded_file($_FILES['avatar']['tmp_name'], '../'.$avatar)) {
 					$avatar= 'inc/images/no-avatar.png';
 				}
 			} else {
