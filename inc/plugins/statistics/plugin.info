@@ -1,0 +1,10 @@
+[Plugin Info]
+AuthorName=Josip Lisec
+AuthorURL=http://josiplisec.net/
+PluginName=Statistics
+PluginDescrip=This plugin logs visits and user details.
+PluginVersion=0.1
+PluginNewVersionsURL=http://josiplisec.net/planetoid/plugins/statistics/versions.info
+PluginURL=http://josiplisec.net/planetoid-statistics/
+LoadFile=statistics.php
+Icon=icon.png
