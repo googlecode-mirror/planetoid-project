@@ -37,7 +37,7 @@ function generate_manage_links($id, $status) {
 	if($status == 1) {
 		$manage= "<a href=\"edit-feed.php?id=$id&amp;r_to=$curr_page\">Edit</a> ";
 		$manage.= "<a href=\"hide-feed.php?id=$id&amp;r_to=$curr_page\" class=\"action-link\" onclick=\"Feeds.hide($id);return false;\">Hide</a> ";
-		$manage.= "<a href=\"remove-feed.php?id=$id&amp;r_to=$curr_page\" class=\"link-red action-link\" onclick=\"Feeds.remove($id);return false;\"action-link\">Delete</a>";
+		$manage.= "<a href=\"remove-feed.php?id=$id&amp;r_to=$curr_page\" class=\"link-red action-link\" onclick=\"Feeds.remove($id);return false;\">Delete</a>";
 		$hidden='';
 		$new_note='';
 	} else if($status == 0) {

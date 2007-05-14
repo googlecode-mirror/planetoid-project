@@ -3,7 +3,7 @@
 	<head profile="http://gmpg.org/xfn/11">
 		<meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
 		<?php $curr_page_title= explode('.php', $curr_page); $curr_page_title= str_replace('-', ' ', $curr_page_title[0]); ?>
-		<title><?php get_title(); ?> Administration &raquo; <?php echo ucfirst(strtolower($curr_page_title)); ?></title>
+		<title><?=get_title()?> Administration &raquo; <?=ucfirst(strtolower($curr_page_title))?></title>
 		<link href="inc/css/admin.css" rel="stylesheet" type="text/css" />
 		<link href="favicon.ico" rel="icon" type="image/ico" />
 		<link href="favicon.ico" rel="shortcut icon" type="image/ico" />
@@ -14,13 +14,13 @@
 	</head>
 	<body>
 		<div id="header">
-			<h1><?php echo get_title(); ?> Administration</h1>
+			<h1><?=get_title()?> Administration</h1>
 		</div>
 		<div id="menu">
 			<ul>
 				<?php
 				if($_SESSION['ulevel'] == 'admin') {
-					$menu_items= array('Dashboard', 'Feeds', 'Looks', 'Planet');
+					$menu_items= array('Dashboard', 'Feeds', 'Looks', 'Plugins', 'Planet');
 				} else {
 					$menu_items= array('Dashboard', 'Feed', 'Account');
 				}
@@ -34,7 +34,7 @@
 						$class= ' class="current"';
 					};
 					?>
-				<li<?php echo $class; ?>><a href="<?php echo $link; ?>"><?php echo $item; ?></a></li>
+				<li<?=$class?>><a href="<?=$link?>"><?=$item?></a></li>
 				<?php }; ?>
 			</ul>
 		</div>
