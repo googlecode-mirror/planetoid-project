@@ -96,7 +96,8 @@ if(SQL_TYPE == 'pgsql') {
 } else if(SQL_TYPE == 'mysql') {
 	sql_action('CREATE TABLE `feeds` ('
 		.'`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,'
-		.'`url` VARCHAR(255) NOT NULL, `email` VARCHAR(255) NOT NULL,'
+		.'`url` VARCHAR(255) NOT NULL,'
+		.'`email` VARCHAR(255) NOT NULL,'
 		.'`avatar` VARCHAR(255) NOT NULL,'
 		.'`approved` INT(1) NOT NULL,'
 		.'`reg_date` DATE,'
