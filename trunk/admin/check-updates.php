@@ -21,7 +21,7 @@ if($_POST['ajax'] == 'true') {
 	echo $output;
 } else {
 	if($file) {
-		header("Location: {$_GET['r_to']}?v=$V&sv=$SV&link=$download");
+		header("Location: {$_GET['r_to']}?v=$V&sv=$SV&link=".urlencode($download));
 	} else {
 		header("Location: {$_GET['r_to']}?e=no-curl");
 	}
