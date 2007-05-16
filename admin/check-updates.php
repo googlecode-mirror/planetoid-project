@@ -2,7 +2,7 @@
 require('../config.php');
 include('../planetoid.php');
 
-$file= curl_get('http://josiplisec.net/planetoid/versions.info');
+$file= curl_get('http://planetoid-project.org/versions.info');
 if($file) {
 	$l_version= parse_info_file($file, 'Planetoid Versions');
 	$V= $l_version['LatestVersion'];
