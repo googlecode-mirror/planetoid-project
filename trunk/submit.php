@@ -10,7 +10,7 @@
 		exit(0);
 	};
 	
-	if($allow && $_POST['action'] == 'submit') {
+	if($allow_this && $_POST['action'] == 'submit') {
 		if(isset($_POST['url']) && isset($_POST['email']) && isset($_POST['pass'])) {
 			if(isset($_FILES['avatar'])) {
 				$avatar_flnm= basename($_FILES['avatar']['name']);

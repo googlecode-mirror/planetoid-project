@@ -67,7 +67,7 @@
 		?>
 	</div>
 	<div id="footer">
-		&copy; 2007 <a href="<?=get_home_link()?>"><?=get_title()?></a>
+		Content copyright by their respective authors.
 		<a href="http://planetoid-project.org">
 			<?php
 			if(strstr($_SERVER['HTTP_USER_AGENT'], 'Mozilla')) {
