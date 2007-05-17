@@ -22,7 +22,9 @@
 			$avatar= sql_action("SELECT avatar FROM feeds WHERE id='".sql_escape($id)."';");
 			$avatar= $avatar['avatar'];
 			if($avatar != 'inc/images/no-avatar.png') {
-				unlink('../'.$avatar);
+				if(file_exists('../'.$avatar) {
+					unlink('../'.$avatar);
+				}
 			}
 			
 			sql_query("DELETE FROM feeds WHERE id='".sql_escape($id)."';");
