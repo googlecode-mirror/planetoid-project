@@ -63,7 +63,7 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 					<br style="clear:both;"/>-->
 				</form>
 				<br/>
-				<h2>About this planet(oid)</h2>
+				<h2>About this Planetoid</h2>
 				<a name="statistics"></a>
 				<h3>Statistics</h3>
 				<p>

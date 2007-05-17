@@ -17,23 +17,24 @@
 		if($_POST['r_to'] == 'planet.php') {
 			if(!isset($_POST['reg_notify'])) {
 				$_POST['reg_notify']= 'off';
+			} else {
+				$_POST['reg_notify']= 'on';
 			}
 			
 			if(!isset($_POST['show_reg_button'])) {
 				$_POST['show_reg_button']= 'off';
+			} else {
+				$_POST['show_reg_button']= 'on';
 			}
 		}
 		
+		$theme= false;
+		$refresh_cache= false;
+		
 		while(list($name, $value) = each($_POST)) {
 			if($name != 'r_to' && $name != 'ajax') {
-				
-				if(is_array($value)) {
-					$name= sql_escape($name[0]);
-					$value= sql_escape($value[0]);
-				} else {
-					$name= sql_escape($name);
-					$value= sql_escape($value);
-				}
+				$name= sql_escape($name);
+				$value= sql_escape($value);
 				
 				sql_query("UPDATE settings SET value='$value' WHERE name='$name';");
 				sleep(1);
