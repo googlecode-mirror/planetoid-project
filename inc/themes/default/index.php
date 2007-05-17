@@ -67,7 +67,15 @@ link_feeds(); ?>
 		<ul>
 			<?php list_blogs(); ?>
 		</ul>
-		<a href="opml.php" class="opml">OPML list of aggregated blogs</a>
+		<p>
+			<a href="opml.php" class="opml">OPML list of aggregated blogs</a><br/>
+			Submissions are open! <a href="submit.php">Join this Planetoid</a>
+		</p>
+		<h5>Meta</h5>
+		<p>
+			<a href="/admin">Administrate this Planetoid</a><br/>
+			<small>Use <em>demo@demo.org</em> as email and <em>demo</em> as password</small>
+		</p>
 	</div>
 	<div id="footer">
 		&copy; 2007 <a href="<?php echo get_home_link(); ?>"><?php echo get_title(); ?></a>

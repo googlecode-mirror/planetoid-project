@@ -136,7 +136,7 @@ sql_action("INSERT INTO settings VALUES (".sql_autoid('settings').", 'theme_dir_
 sql_action("INSERT INTO settings VALUES (".sql_autoid('settings').", 'posts_num', '0');");
 sleep(1);
 
-sql_action("INSERT INTO settings VALUES (".sql_autoid('settings').", 'date_format', 'j\<\s\u\p\>S\<\/\s\u\p\> M Y');");
+sql_action("INSERT INTO settings VALUES (".sql_autoid('settings').", 'date_format', 'j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> M Y');");
 sql_action("INSERT INTO settings VALUES (".sql_autoid('settings').", 'title_regexp', '');");
 sql_action("INSERT INTO settings VALUES (".sql_autoid('settings').", 'content_regexp', '');");
 sleep(1);

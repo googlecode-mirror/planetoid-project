@@ -529,17 +529,18 @@ function simplepie_version() {
 };
 
 function curl_get($url) {
-	if(function_exists(curl_init)) {
-	$session= curl_init($url);
-
-	curl_setopt($session, CURLOPT_HEADER, false);
-	curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-
-	return curl_exec($session);
-
-	curl_close($session);
+	if(function_exists('curl_init')) {
+		$session= curl_init($url);
+	
+		curl_setopt($session, CURLOPT_HEADER, false);
+		curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+		$output= curl_exec($session);
+		
+		curl_close($session);
 	} else {
-		return false;
+		$output= false;
 	}
+	
+	return $output;
 };
 ?>

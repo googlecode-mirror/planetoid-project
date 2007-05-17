@@ -26,10 +26,10 @@ if(isset($_SESSION['uid']) && isset($_SESSION['ulevel'])) {
 				<h3>Manage plugins</h3>
 				<div class="info">
 					Using Plugins you can easily extend your Planetoid website.<br/>
-					To install new plugins, extract plugin package to <pre style="display:inline"><?php echo BASE_DIR; ?>/inc/plugins</pre>
+					To install new plugins, extract plugin package to <pre style="display:inline"><?=BASE_DIR?>/inc/plugins</pre>
 				</div>
 				<p class="settings">
-					<?php make_plugins_table(); ?>
+					<?=make_plugins_table()?>
 				</p>
 			</div>
 		</div>
