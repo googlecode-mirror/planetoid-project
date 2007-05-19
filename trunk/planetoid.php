@@ -1,7 +1,7 @@
 <?php
 define('PLANETOID_VERSION', '0.0');
 define('PLANETOID_REVISION', '7');
-	
+
 if(SQL_TYPE == 'pgsql') {
 	$db_link= pg_connect('host='.SQL_HOST.' port='.SQL_PORT.' dbname='.SQL_DB_NAME.' user='.SQL_USER.' password='.SQL_PASS)
 		or die('Could not connect: ' . pg_last_error());
@@ -13,6 +13,7 @@ if(SQL_TYPE == 'pgsql') {
 
 define('BASE_DIR', get_setting_value('base_url'));
 define('CACHE_DIR', dirname(__FILE__).'/cache');
+define('DEBUG', false);
 
 $_PLUGINS= array();
 
@@ -47,7 +48,7 @@ if(!are_feeds_cached()) {
 function list_articles() {
 	$list_articles_ch= CACHE_DIR.'/list_articles.spc';
 	
-	if(is_cached($list_articles)) {
+	if(is_cached($list_articles_ch)) {
 		return get_cache($list_articles_ch);
 	} else {
 		global $feeds;
@@ -60,7 +61,7 @@ function list_articles() {
 			$feed[$n]->strip_ads(true);
 			$feed[$n]->remove_div();
 			
-			if($MOBILE) {
+			if(MOBILE) {
 				$feed[$n]->strip_attributes(array('align'));
 				$feed[$n]->strip_htmltags(array('p', 'div', 'blockquote', 'pre', 'code', 'img'));
 			}
@@ -452,8 +453,10 @@ function plugin_load_file($name) {
 function checkpoint($location, $data=false) {
 	global $_PLUGINS;
 	
-	for($n=0; $n < count($_PLUGINS[$location]); $n++) {
-		$_PLUGINS[$location][$n]($data);
+	if(isset($_PLUGINS[$location])) {
+		for($n=0; $n < count($_PLUGINS[$location]); $n++) {
+			$_PLUGINS[$location][$n]($data);
+		}
 	}
 };
 
@@ -472,7 +475,7 @@ function parse_info_file($file, $type) {
 	if(strtolower($file[0]) == '['.strtolower($type).']') {
 		for($n=0; $n < count($file); $n++) {
 			$line= $file[$n];
-			if($line{0} != '#') {
+			if(strripos($line, "#") === false) {
 				$set= explode('=', $line);
 				if(isset($set[0]) && isset($set[1])) {
 					$result[$set[0]]= $set[1];
@@ -536,4 +539,66 @@ function curl_get($url) {
 	
 	return $output;
 };
+
+function eroo($no, $str, $file, $line) {
+	switch($no) {
+		case E_USER_NOTICE: case E_NOTICE:
+			$halt= false;
+			$type= "Notice";
+			break;
+		case E_USER_WARNING: case E_COMPILE_WARNING:
+		case E_CORE_WARNING: case E_WARNING:
+			$halt= false;
+			$type= "Warning";
+			break;
+		case E_USER_ERROR: case E_COMPILE_ERROR:
+		case E_CORE_ERROR: case E_ERROR:
+			$halt= true;
+			$type= "Fatal Error";
+			break;
+		case E_PARSE:
+			$halt= true;
+			$type= "Parse Error";
+			break;
+		default:
+			$halt= true;
+			$type = "Unknown Error";
+			break;
+	}
+	
+	if($halt) {
+		$halted= "True";
+	} else {
+		$halted= "False";
+	}
+	
+	if($type == "Notice" && DEBUG == true) {
+		$f= fopen($file, 'r');
+		$lines= fread($f, filesize($file));
+		$lines= explode("\n", $lines);
+		fclose($f);
+		
+		$lines= highlight_string($lines[$line-2]."\n".$lines[$line-1]."\n".$lines[$line], true);
+		echo "<div style=\"margin:20px auto;display:block;padding:10px;border:1px solid #c0c0c0;width:400px;\">"
+			."<h1 style=\"font-weight:normal;font-size:1.2em;color:#900;\">{$str}</h1>"
+				."<p style=\"font-size:0.9em;color:#000;\">"
+					.$lines
+					."<ul>"
+						."<li>File: <pre style=\"display:inline\">{$file}</pre></li>"
+						."<li>Line: {$line}</li>"
+						."<li>Type: {$type}</li>"
+						."<li>On: ".date("d.m.Y. H:i:s")."</li>"
+						."<li>Script stopped: {$halted}</li>"
+					."</ul>"
+				."</p>"
+			."</div>";
+		if($halt) {
+			exit(1);
+		}
+	}
+	return true;
+};
+
+
+set_error_handler('eroo');
 ?>

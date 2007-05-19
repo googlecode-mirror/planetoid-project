@@ -14,17 +14,19 @@
 		include('../config.php');
 		include('../planetoid.php');
 		
-		if($_POST['r_to'] == 'planet.php') {
-			if(!isset($_POST['reg_notify'])) {
-				$_POST['reg_notify']= 'off';
-			} else {
-				$_POST['reg_notify']= 'on';
-			}
-			
-			if(!isset($_POST['show_reg_button'])) {
-				$_POST['show_reg_button']= 'off';
-			} else {
-				$_POST['show_reg_button']= 'on';
+		if(isset($_POST['r_to'])) {
+			if($_POST['r_to'] == 'planet.php') {
+				if(!isset($_POST['reg_notify'])) {
+					$_POST['reg_notify']= 'off';
+				} else {
+					$_POST['reg_notify']= 'on';
+				}
+				
+				if(!isset($_POST['show_reg_button'])) {
+					$_POST['show_reg_button']= 'off';
+				} else {
+					$_POST['show_reg_button']= 'on';
+				}
 			}
 		}
 		

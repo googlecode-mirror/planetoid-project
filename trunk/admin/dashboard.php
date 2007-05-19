@@ -15,10 +15,6 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 		<div id="page">
 			<div id="page-area">
 				<h2>Dashboard</h2>
-				<?php/*<div class="info">
-					<strong>This is hello note</strong>
-					Note: ask Mario to write it :)
-				</div>*/?>
 				<?php if($_SESSION['ulevel'] == 'admin'):
 					$unapproved= 0;
 					
