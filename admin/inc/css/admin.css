@@ -134,6 +134,14 @@ small {
 	color: #444;
 }
 
+code {
+/* 	margin: 5px; */
+	border: 1px solid #c0c0c0;
+	background: #f3f3f3;
+	padding: 3px;
+	display: block;
+}
+
 .info {
 	font-size: 10px;
 	padding: 5px;

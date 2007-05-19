@@ -5,9 +5,9 @@
 	
 	/* Is this a mobile phone/PDA or deskop computer? */
 	if(strstr(strtolower($_SERVER['HTTP_USER_AGENT']), 'midp')) {
-		$MOBILE= true;
+		define('MOBILE', true);
 	} else {
-		$MOBILE= false;
+		define('MOBILE', false);
 	}
 	
 	/*  */
@@ -32,7 +32,7 @@
 	checkpoint("header");
 	
 	/* Load user defined theme, or if it's mobile/PDA browser load special theme */
-	if(!$MOBILE) {
+	if(!MOBILE) {
 		define('THEME_PATH', 'inc/themes/'.get_setting_value('theme_dir_name'));
 		include(THEME_PATH.'/index.php');
 	} else {

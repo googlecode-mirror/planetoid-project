@@ -15,7 +15,7 @@ function make_theme_list() {
 			$spid= '';
 		}
 		$onclick= "onclick=\"Settings.setTheme('$dirname');return false;\"";
-		echo "<div class=\"theme-icon action-link\" $onclick $sipd>";
+		echo "<div class=\"theme-icon action-link\" $onclick $spid>";
 			echo "<a href=\"set-theme.php?dirname=$dirname\" title=\"{$attrs['Comment']}\" class=\"action-link\" $onclick>";
 				echo "<img src=\"../inc/themes/$dirname/{$attrs['Icon']}\" alt=\"$name\" width=\"160px\" height=\"160px\" class=\"theme-image\" />";
 			echo "</a>";
