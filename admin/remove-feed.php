@@ -19,14 +19,15 @@
 			include('../config.php');
 			include('../planetoid.php');
 			
-			$avatar= sql_action("SELECT avatar FROM feeds WHERE id='".sql_escape($id)."';");
-			$avatar= $avatar['avatar'];
+			$user= sql_action("SELECT avatar, email FROM feeds WHERE id='".sql_escape($id)."';");
+			$avatar= $user['avatar'];
 			if($avatar != 'inc/images/no-avatar.png') {
-				if(file_exists('../'.$avatar) {
+				if(file_exists('../'.$avatar)) {
 					unlink('../'.$avatar);
 				}
 			}
 			
+// 			sql_query("DELETE FROM users WHERE email='{$user['email']}';");
 			sql_query("DELETE FROM feeds WHERE id='".sql_escape($id)."';");
 			
 			if($ajax) {
