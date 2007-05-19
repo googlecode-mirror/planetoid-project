@@ -1,6 +1,6 @@
 <?php
 /* From CodeIgniter (from text helpers) */
-function character_limiter($str, $n = 500, $end_char = '&#8230;') {
+function character_limiter($str, $n= 500, $end_char= '&#8230;') {
 	if (strlen($str) < $n) {
 		return $str;
 	}
@@ -64,4 +64,4 @@ for($n= $page_start; $n < $page_end; $n++):
 <?php if($page_end < count($articles)): ?>
 <a href="index.php?p=<?=($page+1)?>">Next &raquo;</a>
 <?php endif; ?>
-<hr/>&copy; 2007 <a href="<?=get_home_link()?>"><?=get_title()?></a><br/>Powered by Planetoid</div></body></html>
+<hr/><a href="<?=get_home_link()?>"><?=get_title()?></a><br/>Powered by Planetoid</div></body></html>

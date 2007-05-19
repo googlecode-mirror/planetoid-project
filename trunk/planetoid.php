@@ -440,7 +440,7 @@ function plugin_load_file($name) {
 		fclose($file);
 		
 		if($plugin_info) {
-			return "inc/plugins/{$name}/".$plugin_info['LoadFile'];
+			return "inc/plugins/{$name}/{$plugin_info['LoadFile']}";
 		} else {
 			return false;
 		}
@@ -452,22 +452,15 @@ function plugin_load_file($name) {
 function checkpoint($location, $data=false) {
 	global $_PLUGINS;
 	
-	if(!$data) {
-		$data= '';
-	}
-	
-	$data= serialize($data);
-	
 	for($n=0; $n < count($_PLUGINS[$location]); $n++) {
-		eval($_PLUGINS[$location][$n]."('{$data}');");
+		$_PLUGINS[$location][$n]($data);
 	}
 };
 
 function plugin_attach($location, $fn_name) {
 	global $_PLUGINS;
 	
-	$data_pass= '';
-	$_PLUGINS[$location][]= "{$fn_name}";
+	$_PLUGINS[$location][]= $fn_name;
 };
 
 
@@ -495,7 +488,7 @@ function parse_info_file($file, $type) {
 
 function list_info_dir($dir, $info_name) {
 	$list= array();
-	if($handle = opendir("{$dir}")) {
+	if($handle = opendir($dir)) {
 		while(false != ($file= readdir($handle))) {
 			$path= $dir.'/'.$file.'/'.$info_name.'.info';
 			if(is_dir($dir.'/'.$file) && $file != '.' && $file != '..' && file_exists($path)) {
