@@ -150,7 +150,7 @@ sql_close();
 		<hr/>
 			Proceed to:
 			<ul>
-				<li><a href="<?=$_POST['link']?>"><?=$_POST['title']?> homepage</a></li>
+				<li><a href="cron.php?to=./&amp;force_rdr=true"><?=$_POST['title']?> homepage</a></li>
 				<li><a href="admin/">Admin pages</a></li>
 			</ul>
 			<hr/>

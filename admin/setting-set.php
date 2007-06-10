@@ -57,6 +57,7 @@
 			if($theme) {
 				include('looks-functions.php');
 				make_theme_list();
+				echo "<script type=\"text/javascript\">$('#curr-theme-box').fadeIn(500);</script>";
 			} else {
 				echo "var updated=true;";
 			}
