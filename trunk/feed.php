@@ -3,10 +3,10 @@
 	header('Content-Type: text/xml');
 	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	
-	include_once('inc/simplepie/idn/idna_convert.class.php');
-	include('inc/simplepie/simplepie.inc');
-	include('config.php');
-	include('planetoid.php');
+	require_once('inc/simplepie/idn/idna_convert.class.php');
+	require_once('inc/simplepie/simplepie.inc');
+	require_once('config.php');
+	require_once('planetoid.php');
 ?>
 <rss version="2.0" 
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"

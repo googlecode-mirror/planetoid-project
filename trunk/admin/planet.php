@@ -14,37 +14,35 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 ?>
 		<div id="page">
 			<div id="page-area">
-				<?php 
-					if($_GET['done'] == 'true') {
-				?>
+				<?php if($_GET['done'] == 'true') { ?>
 					<div id="updated">
 						Settings have been saved.
 					</div>
 				<?php }; ?>
 				<form action="setting-set.php" method="POST">
 					<input type="submit" class="settings-submit" value="Save changes &raquo;" />
-					<input type="hidden" name="r_to" value="<?php echo $curr_page; ?>#settings" />
+					<input type="hidden" name="r_to" value="<?=$curr_page?>" />
 					<h2><img src="inc/images/loading.gif" id="loading" alt="loading" style="display: none;" />Planet</h2>
 					<a name="settings"></a>
 					<h3>Planet settings</h3>
 					<p class="settings">
 						<label for="title">Planet title:</label>
-						<input type="text" name="title" id="title" value="<?php echo get_title(); ?>" />
+						<input type="text" name="title" id="title" value="<?=get_title()?>" />
 						
 						<label for="description">Planet description:</label>
-						<textarea name="description" id="description"><?php echo get_description(); ?></textarea>
+						<textarea name="description" id="description"><?=get_description()?></textarea>
 						<?php
 						$allow_reg= get_setting_value('show_reg_button');
 						$notify= get_setting_value('reg_notify');
 						
 						if($allow_reg == 'on') {
-							$allow_reg= "checked";
+							$allow_reg= "checked=\"true\"";
 						} else {
 							$allow_reg= "";
 						}
 						
 						if($notify == 'on') {
-							$notify= "checked";
+							$notify= "checked=\"true\"";
 						} else {
 							$notify= "";
 						}
@@ -52,15 +50,13 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 						?>
 						
 						<label for="show_reg_button">
-							<input type="checkbox" name="show_reg_button" id="show_reg_button" <?php echo $allow_reg; ?> />Allow anyone to submit feed. 
+							<input type="checkbox" name="show_reg_button" id="show_reg_button" <?=$allow_reg?> />Allow anyone to submit feed. 
 								<small>You will have to approve it before feed shows up on homepage.</small>
 						</label>
 							
 						<label for="reg_notify">
-							<input type="checkbox" name="reg_notify" id="reg_notify" <?php echo $notify; ?> />Send me an email when someone submits feed. <small>Email will be sent to administrator only if someone other than him submits a feed.</small></label>
+							<input type="checkbox" name="reg_notify" id="reg_notify" <?=$notify?> />Send me an email when someone submits feed. <small>Email will be sent to administrator only if someone other than him submits a feed.</small></label>
 					</p>
-					<!--<input type="submit" class="settings-submit" value="Save changes &raquo;" />
-					<br style="clear:both;"/>-->
 				</form>
 				<br/>
 				<h2>About this Planetoid</h2>
@@ -88,6 +84,11 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 					</small>
 					<br/>
 					This Planetoid installation has been running since <?php echo running_time(); ?><br/>
+					<?php if(get_setting_value('pcron') == 'true') { ?>
+					Last cache refresh was on <?=last_refresh('r')?>
+					<?php } else { ?>
+					Ups! <a href="../cron.php?to=admin/planet.php">Cache cron haven't been started yet!</a>
+					<?php } ?><br/>
 					Using SimplePie <?php require_once('../inc/simplepie/simplepie.inc');echo simplepie_version(); ?>
 				</p>
 			</div>

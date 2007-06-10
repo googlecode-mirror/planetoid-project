@@ -72,7 +72,7 @@
 		<link href="admin/inc/favicon.ico" rel="shortcut icon" />
 	</head>
 	<body>
-		<form action="submit.php" method="POST" enctype="multipart/form-data" class="install">
+		<form action="submit.php" method="post" enctype="multipart/form-data" class="install">
 			<a href="http://planetoid-project.org"><img src="admin/inc/images/logo-login.png" alt="Planetoid's logo" /></a>
 			<?php if(isset($error)) { ?>
 			<div class="error">
