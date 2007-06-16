@@ -186,6 +186,8 @@ function add_feed($feed_d) {
 	
 	$feeds_d[]= $curr_feed_d;
 	$feeds[]= $curr_feed_d['url'];
+	
+	return true;
 }
 
 /* Caching functions */
@@ -218,25 +220,18 @@ function are_feeds_cached() {
 }
 
 function cache($content, $path) {
-	if(file_exists($path)) {
-		$file= fopen($path, 'a+');
-		$maketime= filemtime($path);
-		$fileage= time() - $maketime;
-		fwrite($file, $content);
-		fclose($file);
-	} else {
-		$file= fopen($path, 'a+');
-		fwrite($file, $content);
-		fclose($file);
-	}
+	$file= fopen($path, 'a+');
+	fwrite($file, $content);
+	fclose($file);
 }
 
 function get_cache($path) {
 	if(file_exists($path)) {
 		$file= fopen($path, 'r');
 		$cache= fread($file, filesize($path));
-		return unserialize($cache);
 		fclose($file);
+		
+		return unserialize($cache);
 	} else {
 		return false;
 	}
@@ -253,8 +248,8 @@ function refresh_cache() {
 	}
 	
 	sleep(1);
-// 	list_feeds();
-// 	list_articles();
+// 	list_feeds(true);
+// 	list_articles(true);
 	
 	return true;
 }
@@ -276,7 +271,7 @@ function last_refresh($date_format=false) {
 
 function log_cache_refresh($start, $end) {
 	$cache_file= fopen(dirname(__FILE__).'/cache/cron.log', 'a+');
-	$log= date('U', $end)."|".date('U', ($end - $start))."\n";
+	$log= date('U', $end)."|".($end - $start)."\n";
 	fwrite($cache_file, $log);
 	sleep(1);
 	fclose($cache_file);
@@ -314,28 +309,28 @@ function sql_query($action) {
 }
 
 function sql_insert($table, $data, $debug=false) {
-		$query_fields= '';
-		$query_values= '';
-		
-		if(!is_array($data)) {
-			$data= array($data);
-		}
-		
-		while(list($name, $val) = each($data)) {
-			$query_fields .= "{$name},";
-			$query_values .= "'".pg_escape_string($val)."',";
-		}
-		
-		$query_fields= substr($query_fields, 0, -1);
-		$query_values= substr($query_values, 0, -1);
-		
-		$query= "INSERT INTO {$table} ({$query_fields}) VALUES ({$query_values});";
-		
-		if($debug) {
-			echo $query;
-		}
-		
+	$query_fields= '';
+	$query_values= '';
+	
+	if(!is_array($data)) {
+		$data= array($data);
+	}
+	
+	while(list($name, $val) = each($data)) {
+		$query_fields .= "{$name},";
+		$query_values .= "'".sql_escape($val)."',";
+	}
+	
+	$query_fields= substr($query_fields, 0, -1);
+	$query_values= substr($query_values, 0, -1);
+	
+	$query= "INSERT INTO {$table} ({$query_fields}) VALUES ({$query_values});";
+	
+	if($debug) {
+		echo $query;
+	} else {
 		return sql_query($query);
+	}
 }
 
 function sql_fetch_array($qo) {
@@ -583,6 +578,23 @@ function curl_get($url) {
 	}
 	
 	return $output;
+}
+
+function cache_average_time() {
+	$log_f= fopen(CACHE_DIR.'/cron.log', 'r');
+	$log= fread($log_f, filesize(CACHE_DIR.'/cron.log'));
+	fclose($log_f);
+	$lines= explode("\n", $log);
+	$total= 0;
+	
+	for($n=0; $n < count($log); $n++) {
+		$line= $lines[$n];
+		$line= explode("|", $line);
+		$line= $line[1];
+		$total += $line;
+	}
+	
+	return ($total/(count($lines)));
 }
 
 function eroo($no, $str, $file, $line) {
