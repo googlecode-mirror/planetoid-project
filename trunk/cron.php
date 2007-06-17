@@ -8,12 +8,16 @@
 	include('planetoid.php');
 	
 	if(get_setting_value('pcron') == 'true') {
-		if((time() - last_refresh()) > 5400 || are_feeds_cached() == false) {
+		if((time() - last_refresh()) > 5400) {
 			$doing= false;
 		} else {
 			$doing= true;
 		}
 	} else {
+		$doing= false;
+	}
+	
+	if($_GET['force'] == true) {
 		$doing= false;
 	}
 	
@@ -46,9 +50,7 @@
 			}
 			
 			sql_query("INSERT INTO settings VALUES(".sql_autoid('settings').", 'pcron', 'true');");
-			refresh_cache();
 			
-			/* Do actual refresh :) */
 			$feeds= array();
 			$feeds_d= array();
 			
@@ -67,15 +69,17 @@
 			cache(serialize($feeds_d), $feeds_d_ch);
 			sleep(1);
 			
-			$list_feeds= list_feeds(true);
-			$articles= list_articles(true);
+			refresh_cache();
 			sql_close();
 			
-			/* Put this in log file */
-			log_cache_refresh($start_caching, time());
+			log_cache_refresh($start_caching, $end_caching);
 			
 			/* We have been working hard, we should sleep now :)  */
-			sleep(3600);
+			if(!isset($_GET['force'])) {
+				sleep(3600);
+			} else {
+				die();
+			}
 		} while(true);
 	}
 ?>

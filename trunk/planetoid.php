@@ -115,7 +115,7 @@ function list_articles($build=false) {
 							'permalink' => htmlspecialchars($item->get_permalink()),
 							'description' => $content,
 							'post_time' => $item->get_date("j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> M Y"),
-							'avatar_url' => $avatar
+							'avatar_url' => $avatar,
 						);
 						
 						$articles[$key]['plugin_data']= checkpoint("article", $articles[$key]);
@@ -252,8 +252,8 @@ function refresh_cache() {
 	
 	sleep(1);
 	
-	list_feeds(true);
-	list_articles(true);
+	$feeds= list_feeds();
+	$articles= list_articles();
 	
 	return true;
 }
@@ -276,9 +276,10 @@ function last_refresh($date_format=false) {
 function log_cache_refresh($start, $end) {
 	$cache_file= fopen(dirname(__FILE__).'/cache/cron.log', 'a+');
 	$log= date('U', $end)."|".($end - $start)."\n";
-	fwrite($cache_file, $log);
-	sleep(1);
-	fclose($cache_file);
+	if(fwrite($cache_file, $log)) {
+		sleep(1);
+		fclose($cache_file);
+	}
 }
 
 /* SQL functions */
@@ -312,7 +313,7 @@ function sql_query($action) {
 	}
 }
 
-function sql_insert($table, $data, $debug=false) {
+function sql_insert($table, $data) {
 	$query_fields= '';
 	$query_values= '';
 	
@@ -330,7 +331,7 @@ function sql_insert($table, $data, $debug=false) {
 	
 	$query= "INSERT INTO {$table} ({$query_fields}) VALUES ({$query_values});";
 	
-	if($debug) {
+	if(DEBUG) {
 		echo $query;
 	} else {
 		return sql_query($query);
@@ -595,10 +596,10 @@ function cache_average_time() {
 		$line= $lines[$n];
 		$line= explode("|", $line);
 		$line= $line[1];
-		$total += $line;
+		$total .= $line;
 	}
 	
-	return round($total/(count($lines)), 2);
+	return round(($total/(count($lines) - 1)), 2);
 }
 
 function eroo($no, $str, $file, $line) {
