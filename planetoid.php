@@ -257,7 +257,7 @@ function refresh_cache($log=true) {
 	$articles= list_articles();
 	
 	if($log) {
-		log_cache_refresh($start, (time()-$start));
+		log_cache_refresh($start, time());
 	}
 	
 	return true;
