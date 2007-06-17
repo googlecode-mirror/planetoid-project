@@ -69,7 +69,7 @@
 			cache(serialize($feeds_d), $feeds_d_ch);
 			sleep(1);
 			
-			refresh_cache();
+			refresh_cache(false);
 			sql_close();
 			
 			log_cache_refresh($start_caching, $end_caching);
