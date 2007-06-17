@@ -238,7 +238,7 @@ function get_cache($path) {
 	}
 }
 
-function refresh_cache() {
+function refresh_cache($log=true) {
 	$cache_files= array('list_feeds', 'list_articles', 'feeds_base', 'feeds_details');
 	
 	for($n=0; $n < count($cache_files); $n++) {
@@ -251,9 +251,14 @@ function refresh_cache() {
 	}
 	
 	sleep(1);
+	$start= time();
 	
 	$feeds= list_feeds();
 	$articles= list_articles();
+	
+	if($log) {
+		log_cache_refresh($start, time());
+	}
 	
 	return true;
 }
