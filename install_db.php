@@ -74,7 +74,7 @@ if(SQL_TYPE == 'pgsql') {
 		."email varchar,"
 		."avatar varchar,"
 		."approved int,"
-		."reg_date date,"
+		."reg_date date"
 		.");");
 		
 	sql_action("CREATE TABLE users ("
@@ -91,7 +91,7 @@ if(SQL_TYPE == 'pgsql') {
 		."CONSTRAINT settings_pkey PRIMARY KEY (id),"
 		."name varchar,"
 		."CONSTRAINT settings_name_key UNIQUE (name),"
-		."value text,"
+		."value text"
 		.");");
 } else if(SQL_TYPE == 'mysql') {
 	sql_action('CREATE TABLE `feeds` ('

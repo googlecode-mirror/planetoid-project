@@ -8,7 +8,7 @@
 	include('planetoid.php');
 	
 	if(get_setting_value('pcron') == 'true') {
-		if((time() - last_refresh()) > 5400) {
+		if((time() - last_refresh()) > 5400 || are_feeds_cached() == false) {
 			$doing= false;
 		} else {
 			$doing= true;
@@ -69,11 +69,10 @@
 			
 			$list_feeds= list_feeds(true);
 			$articles= list_articles(true);
-			$end_caching= time();
 			sql_close();
 			
 			/* Put this in log file */
-			log_cache_refresh($start_caching, $end_caching);
+			log_cache_refresh($start_caching, time());
 			
 			/* We have been working hard, we should sleep now :)  */
 			sleep(3600);
