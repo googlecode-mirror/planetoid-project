@@ -12,6 +12,8 @@
 	
 	if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 		include('../config.php');
+		require_once('../inc/simplepie/idn/idna_convert.class.php');
+		require_once('../inc/simplepie/simplepie.inc');
 		include('../planetoid.php');
 		
 		if(isset($_POST['r_to'])) {
