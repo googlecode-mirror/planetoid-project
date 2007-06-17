@@ -17,7 +17,7 @@
 		$doing= false;
 	}
 	
-	if($_GET['force'] == true) {
+	if(isset($_GET['force']) == true) {
 		$doing= false;
 	}
 	
@@ -72,7 +72,7 @@
 			refresh_cache(false);
 			sql_close();
 			
-			log_cache_refresh($start_caching, $end_caching);
+			log_cache_refresh($start_caching, time());
 			
 			/* We have been working hard, we should sleep now :)  */
 			if(!isset($_GET['force'])) {
