@@ -23,30 +23,30 @@ $feeds_ch= CACHE_DIR.'/feeds_base.spc';
 $feeds_d_ch= CACHE_DIR.'/feeds_details.spc';
 
 
-// if(!are_feeds_cached()) {
-// 	$feeds_q= sql_get_array("SELECT * FROM feeds;");
-// 	for($n=0; $n < count($feeds_q); $n++) {
-// 		$feed= $feeds_q[$n];
-// 		
-// 		if($feed['approved'] == 1) {
-// 			$feeds[]= $feed['url'];
-// 		}
-// 		
-// 		$feeds_d[]= $feed;
-// 	}
-// 	
-// 	cache(serialize($feeds), $feeds_ch);
-// 	cache(serialize($feeds_d), $feeds_d_ch);
-// } else {
+if(!are_feeds_cached()) {
+	$feeds_q= sql_get_array("SELECT * FROM feeds;");
+	for($n=0; $n < count($feeds_q); $n++) {
+		$feed= $feeds_q[$n];
+		
+		if($feed['approved'] == 1) {
+			$feeds[]= $feed['url'];
+		}
+		
+		$feeds_d[]= $feed;
+	}
+	
+	cache($feeds, $feeds_ch);
+	cache($feeds_d, $feeds_d_ch);
+} else {
 	$feeds= get_cache($feeds_ch);
 	$feeds_d= get_cache($feeds_d_ch);
-// }
+}
 
 /* Feed functions */
 function list_articles($build=false) {
 	$list_articles_ch= CACHE_DIR.'/list_articles.spc';
 	
-	if(!$build) {
+	if(is_cached($list_articles_ch)) {
 		return get_cache($list_articles_ch);
 	} else {
 		global $feeds;
@@ -132,15 +132,15 @@ function list_articles($build=false) {
 			array_splice($articles, $article_limit);
 		}
 		
-		cache(serialize($articles), $list_articles_ch);
+		cache($articles, $list_articles_ch);
 		return $articles;
 	}
 }
 
-function list_feeds($build=false) {
+function list_feeds() {
 	$list_feeds_ch= CACHE_DIR.'/list_feeds.spc';
 	
-	if(!$build) {
+	if(is_cached($list_feeds_ch)) {
 		return get_cache($list_feeds_ch);
 	} else {
 		global $feeds;
@@ -164,7 +164,7 @@ function list_feeds($build=false) {
 			}
 		}
 		
-		cache(serialize($list), $list_feeds_ch);
+		cache($list, $list_feeds_ch);
 		return $list;
 	}
 }
@@ -221,7 +221,8 @@ function are_feeds_cached() {
 
 function cache($content, $path) {
 	$file= fopen($path, 'a+');
-	fwrite($file, $content);
+	fwrite($file, serialize($content));
+	sleep(1);
 	fclose($file);
 }
 
@@ -242,14 +243,17 @@ function refresh_cache() {
 	
 	for($n=0; $n < count($cache_files); $n++) {
 		$file= CACHE_DIR.'/'.$cache_files[$n].'.spc';
+		
 		if(file_exists($file)) {
 			unlink($file);
+// 			touch($file, (time()-5600));
 		}
 	}
 	
 	sleep(1);
-// 	list_feeds(true);
-// 	list_articles(true);
+	
+	list_feeds(true);
+	list_articles(true);
 	
 	return true;
 }
@@ -404,8 +408,7 @@ function link_to_feed($url, $title, $type) {
 }
 
 function registrations_open() {
-	$q= get_setting_value('show_reg_btn');
-	if($q= 'on') {
+	if(get_setting_value('show_reg_btn') == 'on') {
 		return true;
 	} else {
 		return false;
@@ -437,21 +440,22 @@ function get_plugin_setting($plugin_name, $setting) {
 }
 
 function update_plugin_setting($plugin_name, $setting, $value) {
-	return sql_query("UPDATE settings SET value='".sql_escape($value)."' WHERE name='plugin_{$plugin_name}:{$setting}';");
-}
-
-function plugin_prepare_db($rows, $plugin_name) {
-	if($rows) {
-		while(list($name, $value) = each($rows)) {
-			sql_query("INSERT INTO settings VALUES (".sql_autoid('settings').", 'plugin_{$plugin_name}:{$name}', '{$value}');");
-		}
+	if($setting != 'active') {
+		return sql_query("UPDATE settings SET value='".sql_escape($value)."' WHERE name='plugin_{$plugin_name}:{$setting}';");
 	} else {
 		return false;
 	}
 }
 
+function plugin_prepare_db($rows, $plugin_name) {
+	while(list($name, $value) = each($rows)) {
+		sql_query("INSERT INTO settings VALUES (".sql_autoid('settings').", 'plugin_{$plugin_name}:{$name}', '{$value}');");
+	}
+}
+
 function is_plugin_active($name) {
 	$q= sql_action("SELECT value FROM settings WHERE name='plugin_{$name}:active';");
+	
 	if($q['value'] == 'true') {
 		return true;
 	} else {
@@ -594,7 +598,7 @@ function cache_average_time() {
 		$total += $line;
 	}
 	
-	return ($total/(count($lines)));
+	return round($total/(count($lines)), 2);
 }
 
 function eroo($no, $str, $file, $line) {
