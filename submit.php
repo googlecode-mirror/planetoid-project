@@ -1,5 +1,7 @@
 <?php
-		 
+	
+	require_once('inc/simplepie/idn/idna_convert.class.php');
+	require_once('inc/simplepie/simplepie.inc');
 	include('config.php');
 	include('planetoid.php');
 	$allow_this= get_setting_value('show_reg_button');
@@ -10,7 +12,7 @@
 		exit(0);
 	};
 	
-	if($allow_this && $_POST['action'] == 'submit') {
+	if($allow_this == 'on' && $_POST['action'] == 'submit') {
 		if(isset($_POST['url']) && isset($_POST['email']) && isset($_POST['pass'])) {
 			if(isset($_FILES['avatar'])) {
 				$avatar_flnm= basename($_FILES['avatar']['name']);
@@ -26,9 +28,20 @@
 				$avatar= 'inc/images/no-avatar.png';
 			}
 			
-			sql_query("INSERT INTO feeds VALUES (".sql_autoid('feeds').", '".sql_escape($_POST['url'])."', '".sql_escape($_POST['email'])."', '$avatar', 0, '".date('Y-m-d')."');");
+			sql_query("INSERT INTO feeds VALUES ("
+				.sql_autoid('feeds').","
+				."'".sql_escape($_POST['url'])."',"
+				."'".sql_escape($_POST['email'])."',"
+				."'$avatar',"
+				."0,"
+				."'".date('Y-m-d')."');");
 			
-			sql_query("INSERT INTO users VALUES (".sql_autoid('users').", '".sql_escape($_POST['email'])."', '".md5($_POST['pass'])."', '".sql_escape($_POST['name'])."', 'feed_owner');");
+			sql_query("INSERT INTO users VALUES ("
+				.sql_autoid('users').","
+				."'".sql_escape($_POST['email'])."',"
+				."'".md5($_POST['pass'])."',"
+				."'".sql_escape($_POST['name'])."',"
+				."'feed_owner');");
 			
 			sleep(1);
 			refresh_cache();
