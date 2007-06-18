@@ -266,7 +266,7 @@ class SimplePie
 		$this->sanitize->strip_ads($enable);
 	}
 	
-	function strip_htmltags($tags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style'), $encode = null)
+	function strip_htmltags($tags = array('base', 'blink', 'body', 'doctype', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'param', 'script', 'style'), $encode = null)
 	{
 		$this->sanitize->strip_htmltags($tags);
 		if (!is_null($encode))

@@ -67,6 +67,10 @@ input[type=submit]:focus {
 	background: #ffa;
 }
 
+input:disabled, button:disabled, textarea:disabled, submit:disabled {
+	opacity: 0.7;
+}
+
 form, #page {
 	margin: 70px auto 20px auto;
 	padding: 10px;
