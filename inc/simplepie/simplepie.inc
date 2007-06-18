@@ -266,7 +266,7 @@ class SimplePie
 		$this->sanitize->strip_ads($enable);
 	}
 	
-	function strip_htmltags($tags = array('base', 'blink', 'body', 'doctype', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'param', 'script', 'style'), $encode = null)
+	function strip_htmltags($tags = array('base', 'blink', 'body', 'doctype', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'param', 'script', 'style', 'div'), $encode = null)
 	{
 		$this->sanitize->strip_htmltags($tags);
 		if (!is_null($encode))
@@ -4470,7 +4470,7 @@ class SimplePie_Sanitize
 	var $replace_headers = false;
 	var $bypass_image_hotlink = false;
 	var $bypass_image_hotlink_page = false;
-	var $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style');
+	var $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'param', 'script', 'style');
 	var $encode_instead_of_strip = false;
 	var $strip_attributes = array('bgsound', 'class', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur');
 	var $input_encoding = 'UTF-8';
@@ -4518,7 +4518,7 @@ class SimplePie_Sanitize
 		}
 	}
 	
-	function strip_htmltags($tags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style'))
+	function strip_htmltags($tags = array('base', 'blink', 'body', 'doctype', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'param', 'script', 'style'))
 	{
 		if ($tags)
 		{
