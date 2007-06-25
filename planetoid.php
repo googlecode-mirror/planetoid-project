@@ -525,7 +525,7 @@ function parse_info_file($file, $type) {
 	if(strtolower($file[0]) == '['.strtolower($type).']') {
 		for($n=0; $n < count($file); $n++) {
 			$line= $file[$n];
-			if(strripos($line, "#") === false) {
+			if(strrpos($line, "#") === false) {
 				$set= explode('=', $line);
 				if(isset($set[0]) && isset($set[1])) {
 					$result[$set[0]]= $set[1];
