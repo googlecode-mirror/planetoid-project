@@ -37,6 +37,7 @@
 	}
 	
 	if(!$doing) {
+		$n=0;
 		do {
 			$start_caching= time();
 			
@@ -49,7 +50,11 @@
 				mysql_select_db(SQL_DB_NAME) or die('Fatal error: Failed to open connection to MySQL!<br/>Check your configuration');
 			}
 			
-			sql_query("INSERT INTO settings VALUES(".sql_autoid('settings').", 'pcron', 'true');");
+			if($n=0) {
+				sql_query("INSERT INTO settings VALUES(".sql_autoid('settings').", 'pcron', 'true');");
+			} else {
+				sql_query("UPDATE settings SET value='true' WHERE name='pcron';");
+			}
 			
 			$feeds= array();
 			$feeds_d= array();
@@ -77,6 +82,7 @@
 			/* We have been working hard, we should sleep now :)  */
 			if(!isset($_GET['force'])) {
 				sleep(3600);
+				$n++;
 			} else {
 				die();
 			}
