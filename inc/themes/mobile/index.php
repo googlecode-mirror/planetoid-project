@@ -24,6 +24,7 @@ function character_limiter($str, $n= 500, $end_char= '&#8230;') {
 ?>
 <html><head><title><?=get_title()?></title></head><body>
 <h1><a href="<?=get_home_link()?>"><?=get_title()?></a> (mobile edition)</h1>
+<style>body { color:#fff;background:#000; } a {color: #fffbe0}</style>
 <?php
 $articles= list_articles();
 

@@ -10,6 +10,8 @@
 		$id= $_POST['id'];
 		if(strlen($_POST['url']) > 10 && strlen($_POST['email']) > 5 && strlen($id) != 0) {
 			include('../config.php');
+			require_once('../inc/simplepie/idn/idna_convert.class.php');
+			require_once('../inc/simplepie/simplepie.inc');
 			include('../planetoid.php');
 			
 			$id= sql_escape($id);
