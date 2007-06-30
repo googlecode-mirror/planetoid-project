@@ -25,12 +25,12 @@
 			refresh_cache();
 			sql_close();
 			
-			header("Location: ".r_to(0)."&done&id={$id}");
+			header("Location: edit-feed.php?done&id={$id}");
 		} else {
 			if($ajax) {
 				echo 'alert("All fields except avatar\'s URL are required.");';
 			} else {
-				header("Location: ".r_to(0)."&e=not-all&id={$id}");
+				header("Location: edit-feed.php?e=not-all&id={$id}");
 			}
 		}
 	} else {
@@ -40,11 +40,4 @@
 			header('Location: ../login');
 		}
 	}
-	
-	function r_to($part=0) {
-		$link= explode('#', $_POST['r_to']);
-		
-		return $link[$part];
-	}
-	
 ?>
