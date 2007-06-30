@@ -21,7 +21,7 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin' && isset($_GET['id'
 						Settings have been saved.
 					</div>
 				<?php }; ?>
-				<form action="update-feed.php" method="POST">
+				<form action="update-feed.php?r_to=<?=$curr_page?>" method="POST">
 				<input type="submit" value="Save changes &raquo;" class="settings-submit" />
 				<h2><img src="inc/images/loading.gif" id="loading" alt="loading" style="display: none;" />Edit feed</h2>
 				<hr style="display:none;"/>

@@ -25,12 +25,12 @@
 			refresh_cache();
 			sql_close();
 			
-			header("Location: ".r_to(0)."&done=true#".r_to(1));
+			header("Location: ".r_to(0)."&done&id={$id}");
 		} else {
 			if($ajax) {
 				echo 'alert("All fields except avatar\'s URL are required.");';
 			} else {
-				header("Location: ".r_to(0)."&e=not-all#".r_to(1));
+				header("Location: ".r_to(0)."&e=not-all&id={$id}");
 			}
 		}
 	} else {
