@@ -11,6 +11,8 @@
 	
 	if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 		if(strlen($_POST['url']) > 10 && strlen($_POST['email']) > 5 && isset($_POST['approved'])) {
+			require_once('../inc/simplepie/idn/idna_convert.class.php');
+			require_once('../inc/simplepie/simplepie.inc');
 			include('../config.php');
 			include('../planetoid.php');
 			
