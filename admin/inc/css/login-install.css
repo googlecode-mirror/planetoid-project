@@ -56,7 +56,7 @@ input[type=reset] {
 }
 
 input[type=submit] {
-	background: #ffe;
+	background: #ffe url(../images/btn-bg.png) center repeat-x;
 }
 
 input[type=button]:focus, input[type=submit]:focus, input[type=reset]:focus, button:focus {
@@ -64,7 +64,8 @@ input[type=button]:focus, input[type=submit]:focus, input[type=reset]:focus, but
 }
 
 input[type=submit]:focus {
-	background: #ffa;
+	background-color: #ffa;
+	background-position: bottom;
 }
 
 input:disabled, button:disabled, textarea:disabled, submit:disabled {

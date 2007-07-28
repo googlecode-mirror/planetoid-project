@@ -29,7 +29,7 @@
 			
 			if($ajax) {
 				$links= str_replace("'", "\'", generate_manage_links($dir));
-				echo "$('#{$dir}-row td:last').html('{$links}').parent().Highlight(500, '#f00');";
+				echo "$('#{$dir}-row td:last').html('{$links}').parent().Highlight(500, '#e72300');";
 			} else {
 				header("Location: {$_GET['r_to']}");
 			};

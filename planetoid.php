@@ -4,11 +4,11 @@ define('PLANETOID_REVISION', '9');
 
 if(SQL_TYPE == 'pgsql') {
 	$db_link= pg_connect('host='.SQL_HOST.' port='.SQL_PORT.' dbname='.SQL_DB_NAME.' user='.SQL_USER.' password='.SQL_PASS)
-		or die('Could not connect: ' . pg_last_error());
+		or eroo(E_ERROR, 'Unable to connect to PostgreSQL server ('.pg_last_error().')', 'planetoid.php', __LINE__);
 } else if(SQL_TYPE == 'mysql') {
 	$db_link= mysql_connect(SQL_HOST, SQL_USER, SQL_PASS)
-		or die('Could not connect: ' . mysql_error());
-	mysql_select_db(SQL_DB_NAME) or die('Fatal error: Failed to open connection to MySQL!<br/>Check your configuration');
+		or eroo(E_ERROR, 'Unable to connect to MySQL server ('.mysql_error().')', 'planetoid.php', __LINE__);
+	mysql_select_db(SQL_DB_NAME) or eroo(E_ERROR, mysql_error(), 'planetoid.php', __LINE__);
 }
 
 define('BASE_DIR', get_setting_value('base_url'));
@@ -59,11 +59,6 @@ function list_articles($build=false) {
 			$feed[$n]->strip_ads(true);
 			$feed[$n]->remove_div();
 			
-			if(MOBILE) {
-				$feed[$n]->strip_attributes(array('align'));
-				$feed[$n]->strip_htmltags(array('p', 'div', 'blockquote', 'pre', 'code', 'img'));
-			}
-			
 			$feed[$n]->feed_url($feeds[$n]);
 			$feed[$n]->init();
 			$link= $feed[$n]->get_feed_link();
@@ -85,6 +80,7 @@ function list_articles($build=false) {
 					
 					$title= $item->get_title();
 					$content= $item->get_description();
+					
 					$title_regexp= get_setting_value('title_regexp');
 					$content_regexp= get_setting_value('content_regexp');
 					
@@ -124,10 +120,16 @@ function list_articles($build=false) {
 			}
 		}
 		
+		/* Articles are stored in $articles with their publish timestamp as key */
+		/* so that they can be sorted by post time (ksort()). */
+		/* Then the keys is replaced with numbers (0 - articles length)  */
+		/* And splice()d to length defined in settings */
+		
 		ksort($articles);
 		$articles= array_reverse($articles, false);
 		
-		$article_limit= get_setting_value('posts_num');
+		$article_limit= intval(get_setting_value('posts_num'));
+		
 		if($article_limit != 0) {
 			array_splice($articles, $article_limit);
 		}
@@ -179,13 +181,15 @@ function remove_feed($id) {
 			break;
 		}
 	}
+	
+	return true;
 }
 
 function add_feed($feed_d) {
 	global $feeds, $feeds_d;
 	
-	$feeds_d[]= $curr_feed_d;
-	$feeds[]= $curr_feed_d['url'];
+	$feeds_d[]= $feed_d;
+	$feeds[]= $feed_d['url'];
 	
 	return true;
 }
@@ -196,14 +200,13 @@ function is_cached($path) {
 		$file= fopen($path, 'rw');
 		$maketime= filemtime($path);
 		$fileage= time() - $maketime;
+		fclose($file);
 		
-		if(3600 > $fileage) {
+		if($fileage > 3600) {
 			return true;
 		} else {
 			return false;
 		}
-		
-		fclose($file);
 	} else {
 		return false;
 	}
@@ -245,8 +248,8 @@ function refresh_cache($log=true) {
 		$file= CACHE_DIR.'/'.$cache_files[$n].'.spc';
 		
 		if(file_exists($file)) {
-			unlink($file);
-// 			touch($file, (time()-5600));
+//			unlink($file);
+			touch($file, (time()-44444));
 		}
 	}
 	

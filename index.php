@@ -10,8 +10,8 @@
 	
 	require_once('inc/simplepie/idn/idna_convert.class.php');
 	require_once('inc/simplepie/simplepie.inc');
-	require('config.php');
-	require('planetoid.php');
+	require_once('config.php');
+	require_once('planetoid.php');
 
 	$plugins= list_active_plugins();
 	
