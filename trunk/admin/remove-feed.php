@@ -10,32 +10,38 @@
 		$ajax= true;
 	}
 	
-	$id= $_GET['id'];
+	$ids= $_GET['id'];
 	
 	if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
-		if(isset($id)) {
+		if(isset($ids)) {
 			include('../inc/simplepie/idn/idna_convert.class.php');
 			include('../inc/simplepie/simplepie.inc');
 			include('../config.php');
 			include('../planetoid.php');
 			
-			$user= sql_action("SELECT avatar, email FROM feeds WHERE id='".sql_escape($id)."';");
-			$avatar= $user['avatar'];
-			if($avatar != 'inc/images/no-avatar.png') {
-				if(file_exists('../'.$avatar)) {
-					unlink('../'.$avatar);
+			$ids= explode(',', $ids);
+			
+			for($n=0; $n < count($ids); $n++) {
+				$id= sql_escape($ids[$n]);
+				$user= sql_action("SELECT avatar, email FROM feeds WHERE id='{$id}';");
+				$avatar= $user['avatar'];
+				if($avatar != 'inc/images/no-avatar.png') {
+					if(file_exists('../'.$avatar)) {
+						unlink('../'.$avatar);
+					}
+				}
+				
+				/* sql_query("DELETE FROM users WHERE email='{$user['email']}';"); */
+				sql_query("DELETE FROM feeds WHERE id='{$id}';");
+				
+				if($ajax) {
+					echo "$('#table-row-{$id}').css({'color': '#fff', 'background': '#e72300'}).fadeOut(500);";
 				}
 			}
 			
-// 			sql_query("DELETE FROM users WHERE email='{$user['email']}';");
-			sql_query("DELETE FROM feeds WHERE id='".sql_escape($id)."';");
-			
-			if($ajax) {
-				echo "$('#table-row-$id').css({'color': '#fff', 'background': '#f00'}).fadeOut();";
-			} else {
+			if(!$ajax) {
 				header("Location: {$_GET['r_to']}");
 			};
-// 			exit(0);
 			
 			remove_feed($id);
 			refresh_cache();

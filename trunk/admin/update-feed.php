@@ -5,7 +5,6 @@
 	session_name('planetoid_admin');
 	session_start();
 	
-	
 	if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 		$id= $_POST['id'];
 		if(strlen($_POST['url']) > 10 && strlen($_POST['email']) > 5 && strlen($id) != 0) {
@@ -17,7 +16,7 @@
 			$id= sql_escape($id);
 			while(list($name, $value) = each($_POST)) {
 				if($name != 'r_to' && $name != 'id') {
-					sql_query("UPDATE feeds SET $name='$value' WHERE id='$id';");
+					sql_query("UPDATE feeds SET {$name}='{$value}' WHERE id='{$id}';");
 					sleep(1);
 				}
 			}
@@ -25,7 +24,7 @@
 			refresh_cache();
 			sql_close();
 			
-			header("Location: edit-feed.php?done&id={$id}");
+			header("Location: edit-feed.php?done=true&id={$id}");
 		} else {
 			if($ajax) {
 				echo 'alert("All fields except avatar\'s URL are required.");';

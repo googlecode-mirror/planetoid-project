@@ -1,6 +1,7 @@
 <?php
 	ignore_user_abort(true);
 	set_time_limit(0);
+	define('MOBILE', false);
 	
 	require_once('inc/simplepie/idn/idna_convert.class.php');
 	require_once('inc/simplepie/simplepie.inc');

@@ -1,4 +1,5 @@
 <?php
+// 	header('Cache-control: ')
 /* From CodeIgniter (from text helpers) */
 function character_limiter($str, $n= 500, $end_char= '&#8230;') {
 	if (strlen($str) < $n) {
@@ -20,14 +21,10 @@ function character_limiter($str, $n= 500, $end_char= '&#8230;') {
 		}
 	}
 };
-
 ?>
-<html><head><title><?=get_title()?></title></head><body>
-<h1><a href="<?=get_home_link()?>"><?=get_title()?></a> (mobile edition)</h1>
-<style>body { color:#fff;background:#000; } a {color: #fffbe0}</style>
+<html><head><title><?=get_title()?> (mobile edition)</title><style>body { color:#fff;background:#0d0d08;font-size:13px; } a {color: #fffbe0 } hr { width:30%;background:#c0c0c0; }</style></head><body><h1><a href="<?=get_home_link()?>" style="color:#ffff9b"><?=get_title()?></a></h1>
 <?php
 $articles= list_articles();
-
 
 if($page > (count($articles) - 20)) {
 	$page= 1;
@@ -46,6 +43,16 @@ if($page_end > $max_posts) {
 	$page_end= 10;
 }
 
+$navigation= '<p style="text-align:center">';
+	if($page > 1) {
+		$navigation .= "<a href=\"index.php?p=".($page-1)."\">&laquo; Previous</a> | <a href=\"index.php?p=1\">Home</a> |";
+	}
+	
+	if($page_end < count($articles)) {
+		$navigation .= "<a href=\"index.php?p=".($page+1)."\">Next &raquo;</a>";
+	}
+$navigation .= '</p>';
+
 for($n= $page_start; $n < $page_end; $n++):
 	$article= $articles[$n];
 	
@@ -53,16 +60,9 @@ for($n= $page_start; $n < $page_end; $n++):
 	$title= $article['title'];
 	$author= $article['author'];
 	$post_time= $article['post_time'];
-	$post= character_limiter($article['description'], 200);
+	$post= character_limiter(strip_tags($article['description']), 200);
 ?>
-<h2><a href="<?=$link?>"><?=$title?></a></h2>
-<p><?=$post?></p>
-<br style="clear:both;"/><?=$author?> on <?=$post_time?><hr/>
-<?php endfor; ?>
-<?php if($page > 1): ?>
-<a href="index.php?p=<?=($page-1)?>">&laquo; Previous</a> | <a href="index.php?p=1">Home</a> |
-<?php endif; ?>
-<?php if($page_end < count($articles)): ?>
-<a href="index.php?p=<?=($page+1)?>">Next &raquo;</a>
-<?php endif; ?>
-<hr/><a href="<?=get_home_link()?>"><?=get_title()?></a><br/>Powered by Planetoid</div></body></html>
+<h3><a href="<?=$link?>"><?=$title?></a></h3>
+<small><?=$author?> on <?=$post_time?></small>
+<p><?=$post?></p><hr/><?php endfor; ?>
+<?=$navigation?><a href="<?=get_home_link()?>"><?=get_title()?></a><br/>Powered by Planetoid</div></body></html>

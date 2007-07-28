@@ -2,30 +2,34 @@
 	
 	require_once('inc/simplepie/idn/idna_convert.class.php');
 	require_once('inc/simplepie/simplepie.inc');
-	include('config.php');
-	include('planetoid.php');
+	require_once('config.php');
+	require_once('planetoid.php');
 	$allow_this= get_setting_value('show_reg_button');
 	
 	if($allow_this != 'on') {
 		sql_close();
-		header('Location: index.php');
+		header('Location: index.php?reg=closed');
 		exit(0);
 	};
 	
 	if($allow_this == 'on' && $_POST['action'] == 'submit') {
-		if(isset($_POST['url']) && isset($_POST['email']) && isset($_POST['pass'])) {
-			if(isset($_FILES['avatar'])) {
-				$avatar_flnm= basename($_FILES['avatar']['name']);
-				$avatar_name= substr(md5($avatar_flnm.time()), 0, 6);
-				$ext= explode('.', $avatar_flnm);
-				
-				$avatar= "avatars/{$avatar_name}.{$ext[1]}";
-				
-				if(!move_uploaded_file($_FILES['avatar']['tmp_name'], $avatar)) {
+		if(strlen($_POST['url']) >= 5 && strlen($_POST['email']) >= 5 && strlen($_POST['pass']) > 5) {
+			if($_POST['gravatar'] != 'on') {
+				if(isset($_FILES['avatar'])) {
+					$avatar_flnm= basename($_FILES['avatar']['name']);
+					$avatar_name= substr(bin2hex(md5($avatar_flnm.time(), true)), 0, 6);
+					$ext= explode('.', $avatar_flnm);
+					
+					$avatar= "avatars/{$avatar_name}.{$ext[1]}";
+					
+					if(!move_uploaded_file($_FILES['avatar']['tmp_name'], $avatar)) {
+						$avatar= 'inc/images/no-avatar.png';
+					}
+				} else {
 					$avatar= 'inc/images/no-avatar.png';
 				}
 			} else {
-				$avatar= 'inc/images/no-avatar.png';
+				$avatar= "http://www.gravatar.com/avatar.php?size=50&amp;gravatar_id=".bin2hex(md5(trim($_POST['email']), true));
 			}
 			
 			sql_query("INSERT INTO feeds VALUES ("
@@ -83,6 +87,33 @@
 		<link href="admin/inc/css/login-install.css" rel="stylesheet" />
 		<link href="admin/inc/favicon.ico" rel="icon" />
 		<link href="admin/inc/favicon.ico" rel="shortcut icon" />
+		<script src="admin/inc/js/jquery-latest.pack.js" type="text/javascript"></script>
+		<script src="admin/inc/js/interface.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#help a').click(function() {
+					$('#url').val($(this).attr('title')).removeAttr('disabled');
+				});
+				
+				$('#show-help').click(function() {
+					$('#help').show();
+					$('#url').attr('disabled', true);
+					setTimeout(function() {
+						$(document).one('click', function() {
+							$('#help').hide();$('#url').removeAttr('disabled');
+						});
+					}, 100);
+				});
+				
+				$('#gravatar').click(function() {
+					if($(this).attr('checked') == true) {
+						$('#hackergotchi').SlideOutUp(250);
+					} else {
+						$('#hackergotchi').SlideInUp(250);
+					}
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<form action="submit.php" method="post" enctype="multipart/form-data" class="install">
@@ -103,21 +134,37 @@
 			<div class="info">
 				Information about your feed
 			</div>
-			<label for="url">Feed URL:</label>
+			<label for="url">Feed URL (<a href="#" id="show-help">?</a>):</label>
+			<div id="help" class="info-info" style="display: none; position: absolute;">
+				<a href="#" title="http://[name].wordpress.com/feed">WordPress.com</a><br/>
+				<a href="#" title="http://[name].blogger.com/feeds/posts/default">Blogger.com</a><br/>
+				<a href="#" title="http://community.livejournal.com/[name]/data/atom">LiveJournal.com</a><br/>
+				<a href="#" title="http://[name].spaces.live.com/feed.rss">Windows Live Spaces</a><br/>
+				<a href="#" title="http://www.flickr.com/photos/[name]">Flick Photos</a><br/>
+				<a href="#" title="http://del.icio.us/rss/[name]">del.icio.us links</a><br/>
+				<a href="#" title="http://www.xanga.com/[name]/rss">Xanga</a><br/>
+			</div>
 			<input type="text" name="url" id="url" value="http://" />
 			
-			<label for="avatar">Hackergotchi: <small>(max 0.5 MB)</small></label>
-			<input type="hidden" name="MAX_FILE_SIZE" value="524288" /><!-- 0.5 mb -->
-			<input type="file" name="avatar" id="avatar" />
+<!--			<select>
+				<option>Gravatar for below given email</option>
+				<option>URL</option>
+				<option>Upload hackergotchi</option>
+			</select>-->
+			<label for="gravatar"><input type="checkbox" name="gravatar" id="gravatar" checked="true" />Use Gravatar for below given email</label>
 			
-			<label for="email">Where to send notifications: <small>(your email)</small></label>
-			<input type="text" name="email" id="email" />
+			<div id="hackergotchi" style="margin:0;padding:0;display:none;">
+				<label for="avatar">Upload your own hackergotchi: <small>(max 0.5 MB)</small></label>
+				<input type="hidden" name="MAX_FILE_SIZE" value="524288" /><!-- 0.5 mb -->
+				<input type="file" name="avatar" id="avatar" />
+			</div>
 			
 			<hr/>
 			
-			<div class="info">
-				You account details
-			</div>
+			<div class="info">Your account details</div>
+			
+			<label for="email">Email:</label>
+			<input type="text" name="email" id="email" />
 			
 			<label for="pass">Password:</label>
 			<input type="password" name="pass" id="pass" />

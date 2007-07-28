@@ -9,10 +9,10 @@
 		$ajax= true;
 	}
 	
-	$id= $_GET['id'];
+	$ids= $_GET['id'];
 	
 	if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
-		if(isset($id)) {
+		if(isset($ids)) {
 			include('../inc/simplepie/idn/idna_convert.class.php');
 			include('../inc/simplepie/simplepie.inc');
 			include('../config.php');
@@ -22,38 +22,40 @@
 				include('feeds-functions.php');
 			}
 			
-			$id= sql_escape($id);
-			sql_query("UPDATE feeds SET approved=1 WHERE id='".sql_escape($id)."';");
-			$curr_feed_d= sql_action("SELECT * FROM feeds WHERE id='".sql_escape($id)."';");
-			$mail= $curr_feed_d['email'];
+			$ids= explode(',', $ids);
 			
-			$admin_mail= sql_query("SELECT email FROM users WHERE role_level='admin';");
-			$admin_mail= $admin_mail['email'];
-			
-			if($mail != $admin_mail) {
-				$mail_cont= nl2br("Your feed on <a href=\"".get_home_link()."\">".get_title()."</a> has been approved.
-				---
-				Powered by <a href=\"http://project-planetoid.org\">Planetoid</a> ".PLANETOID_VERSION." - Generated on ".date('r'));
+			for($n=0; $n < count($ids); $n++) {
+				$id= sql_escape($ids[$n]);
 				
-				mail($mail, "Planetoid administration", $mail_cont, "From: Planetoid <noreplay@planetoid.services> \r\n"
-				."Content-Type: text/html; charset=UTF-8\r\n"
-				."X-Mailer: PHP/" . phpversion());
+				sql_query("UPDATE feeds SET approved=1 WHERE id='".sql_escape($id)."';");
+				$curr_feed_d= sql_action("SELECT * FROM feeds WHERE id='".sql_escape($id)."';");
+				$mail= $curr_feed_d['email'];
+				
+				$admin_mail= sql_query("SELECT email FROM users WHERE role_level='admin';");
+				$admin_mail= $admin_mail['email'];
+				
+				if($mail != $admin_mail) {
+					$mail_cont= nl2br("Your feed on <a href=\"".get_home_link()."\">".get_title()."</a> has been approved.
+					---
+					Powered by <a href=\"http://project-planetoid.org\">Planetoid</a> ".PLANETOID_VERSION." - Generated on ".date('r'));
+					
+					mail($mail, "Planetoid administration", $mail_cont, "From: Planetoid <noreplay@planetoid.services> \r\n"
+					."Content-Type: text/html; charset=UTF-8\r\n"
+					."X-Mailer: PHP/" . phpversion());
+				}
+				
+				if($ajax) {
+					$manage= generate_manage_links($id, 1);
+					$manage= $manage['manage'];
+					
+					echo "$('#table-row-{$id} td:first img').remove();";
+					echo "$('#table-row-{$id} td:last').html('{$manage}').parent().Highlight(1000,'#64b31b');";
+				}
 			}
 			
-			if($ajax) {
-				$links= generate_manage_links($id, 1);
-				$manage= $links['manage'];
-				$new_note= $links['new_note'];
-				$hidden= $links['hidden'];
-				
-				$table_row= "<td class=\"num\">$id $new_note</td><td>'+feedURL+'</td><td>$manage</td>";
-				
-				echo "var feedURL= $('#table-row-$id td:eq(1)').html();";
-				echo "$('#table-row-$id').html('$table_row').Highlight(1000, '#82d93e');";
-			} else {
+			if(!$ajax) {
 				header("Location: {$_GET['r_to']}");
-			};
-			
+			}
 			
 			add_feed($curr_feed_d);
 			refresh_cache();

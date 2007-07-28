@@ -31,15 +31,19 @@ a.link-red:hover, a.link-green:hover, a.link-unhide:hover {
 }
 
 a.link-red:hover {
-	background: #f00;
+	background: #e72300;
 }
 
 a.link-green:hover {
-	background: #008000;
+	background: #64b31b;
 }
 
 a.link-unhide:hover {
-	background: #000;
+	background: #0b112d;
+}
+
+a.action-link:focus {
+	outline: 0;
 }
 
 h1, h1 a {
@@ -110,7 +114,7 @@ input[type=reset] {
 }
 
 input[type=submit] {
-	background: #ffe;
+	background: #ffe url(../images/btn-bg.png) center repeat-x;
 }
 
 input[type=button]:focus, input[type=submit]:focus, input[type=reset]:focus, button:focus {
@@ -118,7 +122,8 @@ input[type=button]:focus, input[type=submit]:focus, input[type=reset]:focus, but
 }
 
 input[type=submit]:focus {
-	background: #ffa;
+	background-color: #ffa;
+	background-position: bottom;
 }
 
 label {
@@ -241,7 +246,7 @@ code {
 table {
 	border: 1px solid #c0c0c0;
 	margin: 5px;
-	width: 100%;
+	width: 99%;
 }
 
 table tr.header, table tr.header:hover {
@@ -299,8 +304,13 @@ table th.sortDesc {
 	text-indent: 0px;
 }
 
-table tr.hidden {
-	opacity: 0.4;
+table tr.hidden a {
+/* 	opacity: 0.4; */
+	color: #c0c0c0;
+}
+
+table tbody tr.selected, table tbody tr.selected:hover {
+	background: #ffe url(../images/btn-bg.png) top repeat-x;
 }
 
 #themes {
