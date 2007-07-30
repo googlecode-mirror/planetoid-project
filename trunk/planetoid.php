@@ -110,11 +110,13 @@ function list_articles($build=false) {
 							'author' => $author,
 							'permalink' => htmlspecialchars($item->get_permalink()),
 							'description' => $content,
+							'timestamp' => $key,
 							'post_time' => $item->get_date("j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> M Y"),
 							'avatar_url' => $avatar,
 						);
 						
-						$articles[$key]['plugin_data']= checkpoint("article", $articles[$key]);
+						/* Call plugins that are attached to "article" */
+						$articles[$key]['plugin_data']= checkpoint('article', $articles[$key]);
 					}
 				}
 			}
@@ -344,16 +346,6 @@ function sql_insert($table, $data) {
 	} else {
 		return sql_query($query);
 	}
-}
-
-function sql_fetch_array($qo) {
-	if(SQL_TYPE == 'pgsql') {
-		$db_r= "pg_fetch_array($qo, NULL, PGSQL_ASSOC);";
-	} else if(SQL_TYPE == 'mysql') {
-		$db_r= "mysql_fetch_array($qo, MYSQL_ASSOC);";
-	}
-	
-	return $db_r;
 }
 
 function sql_escape($string) {
@@ -608,6 +600,10 @@ function cache_average_time() {
 	}
 	
 	return round(($total/(count($lines) - 1)), 2);
+}
+
+function hAtom_date($timestamp) {
+	return date('Ymd', $timestamp);
 }
 
 function eroo($no, $str, $file, $line) {
