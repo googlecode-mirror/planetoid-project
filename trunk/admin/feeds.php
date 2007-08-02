@@ -59,13 +59,14 @@ if(isset($_SESSION['uid']) && isset($_SESSION['ulevel'])) {
 						<label for="approved">Status:</label>
 						<select name="approved" id="approved">
 							<option value="1">Approved</option>
-							<option value="0">Waiting for approval</option>
 							<option value="2">Hidden</option>
+							<option value="0">Waiting for approval</option>
 						</select>
 					</p>
 					<p class="settings">
 						<input type="hidden" value="<?=$curr_page?>" name="r_to" />
-						<input type="submit" value="Add feed &raquo;" />
+						<button type="submit"><img src="inc/images/add.png" alt="Add feed" class="icon" />Add feed</button>
+<!-- 						<input type="submit" value="Add feed &raquo;" /> -->
 						<input type="reset" value="Reset form" />
 					</p>
 				</form>

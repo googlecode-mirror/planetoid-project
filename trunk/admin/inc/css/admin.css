@@ -1,7 +1,7 @@
 body {
 	padding: 0;
 	margin: 0;
-	background: #f3f3f3;
+	background: #d3d3d3;
 	color: #000;
 	font-size: 13px;
 	font-family: 'Bitstream Vera Sans', 'DejaVu Sans' 'Lucida Sans', 'Verdana', 'Calibri', 'Tahoma', sans-serif;
@@ -49,14 +49,19 @@ a.action-link:focus {
 h1, h1 a {
 	color: #333;
 	font-weight: normal;
-	letter-spacing: 5px;
+	letter-spacing: -1px;
 	background: inherit;
+	text-decoration: none;
 }
 
 h1 {
-	font-size: 1.3em;
+	font-size: 1.5em;
 	text-align: left;
 	padding: 10px 0 0 0 !important;
+}
+
+h1:hover a {
+	text-decoration: underline;
 }
 
 h1, h2, h3, h4 {
@@ -107,7 +112,7 @@ input[type=button], input[type=submit], input[type=reset], input[type=file], but
 	border-right: 1px solid #848484;
 	border-left: 1px solid #c0c0c0;
 	border-top: 1px solid #c0c0c0;
-	padding: 2px;
+	padding: 3px;
 	margin: 3px;
 	background: #fefefe;
 }
@@ -116,7 +121,7 @@ input[type=reset] {
 	font-size: 9px;
 }
 
-input[type=submit] {
+input[type=submit], button[type=submit] {
 	background: #ffe url(../images/btn-bg.png) center repeat-x;
 }
 
@@ -124,7 +129,7 @@ input[type=button]:focus, input[type=submit]:focus, input[type=reset]:focus, but
 	outline: 1px solid #0063dc;
 }
 
-input[type=submit]:focus {
+input[type=submit]:focus, button[type=submit]:focus {
 	background-color: #ffa;
 	background-position: bottom;
 }
@@ -160,14 +165,16 @@ code {
 }
 
 #header {
-	padding: 10px;
-	margin: 0 0 20px 0;
+	padding: 10px 10px 20px 10px;
+	background: #f3f3f3;
 }
+
+#menu { background: #f3f3f3 }
 
 #menu ul {
 	list-style: none;
-	padding: 0 0 0 20px;
-	margin: 5px;
+	margin: 0;
+	padding: 5px 5px 5px 25px;
 }
 
 #menu ul li {
@@ -177,11 +184,10 @@ code {
 }
 
 #menu ul li:hover { background: #ddd; }
-#menu ul li:focus { background: #ccc; }
+#menu ul li:active, #menu ul a:focus li { background: #ccc; }
 
 #menu ul li.current, #menu ul li.current:hover {
 	background: #111 url(../images/menu-current.png) top center no-repeat;
-	outline: none;
 }
 
 #menu ul li:hover, #menu ul li.current {
@@ -190,6 +196,7 @@ code {
 
 #menu ul li a {
 	text-decoration: none;
+	outline: 0;
 }
 
 #menu ul li.current a, #menu ul li.current:hover a {
@@ -206,7 +213,6 @@ code {
 	padding: 40px 0 30px 0;
 	margin: 0;
 }
-
 
 #page-area {
 	border: 1px solid #c0c0c0;
@@ -236,14 +242,11 @@ code {
 }
 
 #footer {
-	border-top: 1px solid #ddd;
-/* 	background: #f1f1f1; */
-	padding: 10px 10px 10px 42px;
+	padding: 10px 10px 10px 20px;
 	margin: 0;
-/* 	width: 300px; */
 	font-size: 10px;
 	height: 48px;
-	background: transparent url(../images/footer-logo.png) left center no-repeat;
+	background: #d3d3d3 url(../images/td-header_down.png) top repeat-x;
 }
 
 table {
@@ -371,12 +374,17 @@ div.theme-icon span {
 }
 
 #updated {
-	padding: 5px;
+	padding: 5px 5px 5px 25px;
 	color: #000;
-	background: #ffe;
+	background: #ffe url(../images/info.png) no-repeat;
+	background-position: 5px center;
 	margin: 0 0 10px 0;
 	border: 1px solid #c0c0c0;
 	cursor: pointer;
+}
+
+#updated:hover {
+	border-color: #999;
 }
 
 #feed-avatar {
@@ -395,3 +403,5 @@ div.theme-icon span {
 	background: #f00;
 	padding: 5px;
 }
+
+.icon { margin: 0 5px -3px 0; display: inline; }

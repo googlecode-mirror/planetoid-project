@@ -53,7 +53,6 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin' && isset($_GET['id'
 							}
 							?>
 						</select>
-						<!--<a href="remove-feed.php?id=<?php echo $_GET['id']; ?>&amp;to=<?php echo $curr_page.'?id='.$feed['id']; ?>" class="action-link link-red" onclick="Feeds.remove(<?php echo $_GET['id']; ?>);return false;">Delete feed</a>--->
 					</p>
 				</form>
 			</div>

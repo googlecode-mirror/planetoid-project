@@ -84,17 +84,15 @@ $(document).ready(function() {
 	});
 	
 	if($('#updated').length) {
-		$('#updated').Highlight(2000, '#ffa');
+		$('#updated').Highlight(3600, '#ffa');
 		
 		setTimeout(function() {
 			if($('#updated').css('display') != 'none') {
-				$('#updated').fadeOut(500);
+				$('#updated').fadeOut(21600);
 			};
-		}, 21600);
+		}, 3600);
 		
-		$('#updated').click(function() {
-			$(this).fadeOut(500);
-		});
+		$('#updated').click(function() { $(this).stopAll().fadeOut(); });
 	};
 	
 	
