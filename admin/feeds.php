@@ -30,13 +30,12 @@ if(isset($_SESSION['uid']) && isset($_SESSION['ulevel'])) {
 				</p>
 				<p>
 					Apply to selection:
-						<a href="#" class="action-link link-green" onclick="Feeds.approve('sel');return false;">Approve</a>,
-						<a href="#" class="action-link link-red" onclick="Feeds.remove('sel');return false;">Reject/Delete</a>,
-						<a href="#" class="action-link link-unhide" onclick="Feeds.hide('sel', 1);return false;">Unhide</a>,
+						<a href="#" class="action-link green" onclick="Feeds.approve('sel');return false;">Approve</a>,
+						<a href="#" class="action-link red" onclick="Feeds.remove('sel');return false;">Reject/Delete</a>,
+						<a href="#" class="action-link black" onclick="Feeds.hide('sel', 1);return false;">Unhide</a>,
 						<a href="#" class="action-link" onclick="Feeds.hide('sel', 2);return false;">Hide</a>
 				</p>
 				<br/>
-<!-- 				<input type="submit" value="Add feed &raquo;" class="settings-submit" /> -->
 				<a name="add"></a>
 				<h3>Add new feed</h3>
 				<?php if($_GET['e'] == 'not-all'): ?>
