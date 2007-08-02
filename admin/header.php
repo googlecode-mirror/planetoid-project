@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<div id="header">
-			<h1><?=get_title()?> Administration</h1>
+			<h1><a href="<?=get_home_link()?>"><?=get_title()?></a> Administration</h1>
 		</div>
 		<div id="menu">
 			<ul>
@@ -30,11 +30,11 @@
 					$link= strtolower($item).'.php';
 					$class='';
 					
-					if($curr_page == $link) {
+					if($curr_page == $link || strstr($curr_page, str_replace('s', '', $link))) {
 						$class= ' class="current"';
 					};
 					?>
-				<li<?=$class?>><a href="<?=$link?>"><?=$item?></a></li>
+				<li<?=$class?>><a href="<?=$link?>"><img src="inc/images/<?=strtolower($item)?>.png" class="icon" alt="<?$item?>" /><?=$item?></a></li>
 				<?php }; ?>
 			</ul>
 		</div>
