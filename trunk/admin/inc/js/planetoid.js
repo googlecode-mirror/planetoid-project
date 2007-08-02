@@ -56,7 +56,7 @@ var Plugin= {
 	
 	deactivate: function(dir) {
 		if(dir) {
-			$.getScript('deactivate-plugin.php?dir=' + dir + 'ajax=true');
+			$.getScript('deactivate-plugin.php?dir=' + dir + '&ajax=true');
 		}
 	}
 };
