@@ -97,7 +97,7 @@ $(document).ready(function() {
 	
 	
 	if($('#error').length) {
-		setTimeout(function() {$('#error').fadeOut(500);}, 21600);
+		setTimeout(function() { $('#error').fadeOut(21600); }, 3600);
 	};
 	
 	if($('form#add-feed').length) {

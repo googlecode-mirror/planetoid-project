@@ -7,44 +7,25 @@ body {
 	font-family: 'Bitstream Vera Sans', 'DejaVu Sans' 'Lucida Sans', 'Verdana', 'Calibri', 'Tahoma', sans-serif;
 }
 
-a {
-	text-decoration: underline;
-	color: #333;
-/* 	background: inherit; */
-}
+a { text-decoration: underline; color: #333; }
+a:hover { color: #000; }
+a img { border: 0px !important; }
+a.link-red, a.link-green, a.link-unhide { padding: 2px; }
+table#feeds-table td.manage-links a { text-decoration: none; }
+table#feeds-table td.manage-links a span { display: none; }
+table#feeds-table td.manage-links a img { margin-right: 0; }
+table#feeds-table td.manage-links a:hover span { display: inline; }
+table#feeds-table td.manage-links a:hover img { margin-right: 5px; }
 
-a:hover {
-	color: #000;
-}
-
-a img {
-	border: 0px !important;
-}
-
-a.link-red, a.link-green, a.link-unhide {
-	padding: 2px;
-}
-
-a.link-red:hover, a.link-green:hover, a.link-unhide:hover {
+a.red:hover, a.green:hover, a.black:hover {
 	color: #fff;
 	text-decoration: none;
 }
 
-a.link-red:hover {
-	background: #e72300;
-}
-
-a.link-green:hover {
-	background: #64b31b;
-}
-
-a.link-unhide:hover {
-	background: #0b112d;
-}
-
-a.action-link:focus {
-	outline: 0;
-}
+a.red:hover { background: #e72300; }
+a.green:hover { background: #64b31b; }
+a.black:hover { background: #0b112d; }
+a.action-link:focus { outline: 0; }
 
 h1, h1 a {
 	color: #333;
@@ -166,10 +147,10 @@ code {
 
 #header {
 	padding: 10px 10px 20px 10px;
-	background: #f3f3f3;
+	background: #fff;
 }
 
-#menu { background: #f3f3f3 }
+#menu { background: #fff }
 
 #menu ul {
 	list-style: none;
@@ -181,44 +162,42 @@ code {
 	padding: 5px;
 	margin: 0 2px 0 0;
 	display: inline;
+	border: 1px solid #fff;
+	border-bottom: 1px solid #ddd !important;
 }
 
-#menu ul li:hover { background: #ddd; }
-#menu ul li:active, #menu ul a:focus li { background: #ccc; }
+#menu ul li:hover { background: #f9f9f9; border: 1px solid #f3f3f3; }
+#menu ul li:active, #menu ul a:focus li { background: #f3f3f3; }
 
-#menu ul li.current, #menu ul li.current:hover {
-	background: #111 url(../images/menu-current.png) top center no-repeat;
+#menu ul li.current, #menu ul li.current:hover  {
+	background: #f3f3f3;
+	padding: 7px 5px 6px 5px;
+	border: 1px solid #ddd;
+	border-bottom: 1px solid #f3f3f3 !important;
 }
 
-#menu ul li:hover, #menu ul li.current {
-	cursor: pointer;
-}
-
-#menu ul li a {
-	text-decoration: none;
-	outline: 0;
-}
+#menu ul li:hover, #menu ul li.current { cursor: pointer; }
+#menu ul li a { text-decoration: none; outline: 0; }
 
 #menu ul li.current a, #menu ul li.current:hover a {
-	color: #fff;
+	color: #000;
 	background: transparent;
 }
 
-#menu ul li:hover a {
-	color: #111;
-}
+#menu ul li:hover a { color: #111; }
 
 #page {
-	background: #fff url(../images/top-divider.png) top left repeat-x;
-	padding: 40px 0 30px 0;
+	background: #f3f3f3;
+	padding: 30px 0;
 	margin: 0;
+	border-top: 1px solid #ddd;
 }
 
 #page-area {
 	border: 1px solid #c0c0c0;
 	padding: 10px;
 	background: #fff;
-	width: 90%;
+	width: 95%;
 	margin: auto;
 	display: block;
 }
@@ -400,8 +379,10 @@ div.theme-icon span {
 
 #error {
 	color: #fff;
-	background: #f00;
-	padding: 5px;
+	background: #f00 url(../images/error.png) no-repeat;
+	background-position: 5px center;
+	padding: 5px 5px 5px 25px;
 }
 
 .icon { margin: 0 5px -3px 0; display: inline; }
+td.manage-links { text-align: right; }
