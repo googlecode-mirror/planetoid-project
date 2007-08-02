@@ -60,14 +60,14 @@
 				}
 			}
 			
-			if(!$ajax) {
+			if($ajax) {
+// 				header("Connection: Close");
+			} else {
 				header("Location: {$_GET['r_to']}");
-			};
+			}
 			
-			exit;
 			refresh_cache();
 			sql_close();
-			
 		} else {
 			if($ajax) {
 				echo 'alert("An error occured.\nTry again later.");';
