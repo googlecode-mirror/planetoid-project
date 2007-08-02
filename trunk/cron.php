@@ -19,7 +19,7 @@
 		$doing= false;
 	}
 	
-	if(isset($_GET['force']) == true) {
+	if(isset($_GET['force']) == 'true') {
 		$doing= false;
 	}
 	
@@ -39,7 +39,7 @@
 	}
 	
 	if(!$doing) {
-		$n=0;
+		$n= 0;
 		do {
 			$start_caching= time();
 			
@@ -52,7 +52,7 @@
 				mysql_select_db(SQL_DB_NAME) or die('Fatal error: Failed to open connection to MySQL!<br/>Check your configuration');
 			}
 			
-			if($n=0) {
+			if($n= 0) {
 				sql_query("INSERT INTO settings VALUES(".sql_autoid('settings').", 'pcron', 'true');");
 			} else {
 				sql_query("UPDATE settings SET value='true' WHERE name='pcron';");

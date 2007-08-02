@@ -21,6 +21,7 @@
 			
 			$ids= explode(',', $ids);
 			
+			header("Connection: Close");
 			for($n=0; $n < count($ids); $n++) {
 				$id= sql_escape($ids[$n]);
 				$user= sql_action("SELECT avatar, email FROM feeds WHERE id='{$id}';");
