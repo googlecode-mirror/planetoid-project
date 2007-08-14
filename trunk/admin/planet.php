@@ -28,32 +28,32 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 					<p class="settings">
 						<label for="title">Planet title:</label>
 						<input type="text" name="title" id="title" value="<?=get_title()?>" />
-						
+
 						<label for="description">Planet description:</label>
 						<textarea name="description" id="description"><?=get_description()?></textarea>
 						<?php
 						$allow_reg= get_setting_value('show_reg_button');
 						$notify= get_setting_value('reg_notify');
-						
+
 						if($allow_reg == 'on') {
 							$allow_reg= "checked=\"true\"";
 						} else {
 							$allow_reg= "";
 						}
-						
+
 						if($notify == 'on') {
 							$notify= "checked=\"true\"";
 						} else {
 							$notify= "";
 						}
-						
+
 						?>
-						
+
 						<label for="show_reg_button">
-							<input type="checkbox" name="show_reg_button" id="show_reg_button" <?=$allow_reg?> />Allow anyone to submit feed. 
+							<input type="checkbox" name="show_reg_button" id="show_reg_button" <?=$allow_reg?> />Allow anyone to submit feed.
 								<small>You will have to approve it before feed shows up on homepage.</small>
 						</label>
-							
+
 						<label for="reg_notify">
 							<input type="checkbox" name="reg_notify" id="reg_notify" <?=$notify?> />Send me an email when someone submits feed. <small>Email will be sent to administrator only if someone other than him submits a feed.</small></label>
 					</p>
@@ -74,7 +74,7 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 								echo "You have the latest version";
 							}
 						}
-						
+
 						if($_GET['e'] == 'no-curl') {
 							echo "Unable to check for updates";
 						}
@@ -89,7 +89,8 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 					<?php } else { ?>
 					Ups! <a href="../cron.php?to=admin/planet.php">Cache cron haven't been started yet!</a>
 					<?php } ?><br/>
-					Using SimplePie <?php require_once('../inc/simplepie/simplepie.inc');echo simplepie_version(); ?>
+					Using SimplePie <?php require_once('../inc/simplepie/simplepie.inc');echo simplepie_version(); ?><br/>
+					Icons by <a href="http://oxygen-icons.org/">Oxygen</a> team
 				</p>
 			</div>
 		</div>

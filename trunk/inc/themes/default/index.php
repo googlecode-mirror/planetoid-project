@@ -37,7 +37,7 @@
 					<h3><?= $author ?></h3>
 					<h4 class="updated published" title="<?= hAtom_date($article['timestamp']) ?>"><?= $post_time ?></h4>
 				</div>
-				<div class="article-body summary">
+				<div class="article-body entry-content">
 					<?= $post ?>
 					<br style="clear:both;" />
 				</div>
