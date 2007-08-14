@@ -1,6 +1,6 @@
 <?php
-	ini_set("short_open_tag", true);
-	ini_set("user_agent", "Planetoid (http://planetoid-project.org/)");
+	ini_set('short_open_tag', true);
+	ini_set('user_agent', 'Planetoid (http://planetoid-project.org/)');
 	
 	if(strstr(strtolower($_SERVER['HTTP_USER_AGENT']), 'midp')) {
 		define('MOBILE', true);
@@ -8,27 +8,29 @@
 		define('MOBILE', false);
 	}
 	
+	ob_start();
+	
 	require_once('inc/simplepie/idn/idna_convert.class.php');
 	require_once('inc/simplepie/simplepie.inc');
 	require_once('config.php');
 	require_once('planetoid.php');
 
-	$plugins= list_active_plugins();
+	$plugins = list_active_plugins();
 	
-	for($p=0; $p < count($plugins); $p++) {
-		$plugin_load_file= plugin_load_file($plugins[$p]);
+	for($p = 0; $p < count($plugins); $p++) {
+		$plugin_load_file = plugin_load_file($plugins[$p]);
 		if(file_exists($plugin_load_file)) {
 			include($plugin_load_file);
 		}
 	}
 	
-	checkpoint("header");
+	checkpoint('header');
 	
 	if(!MOBILE) {
 		define('THEME_PATH', 'inc/themes/'.get_setting_value('theme_dir_name'));
 		include(THEME_PATH.'/index.php');
 	} else {
-		checkpoint("mobile.header");
+		checkpoint('header.mobile');
 		
 		if(isset($_GET['p'])) {
 			$page= intval($_GET['p']);
@@ -37,10 +39,11 @@
 		}
 		
 		include('inc/themes/mobile/index.php');
-		checkpoint("mobile.footer");
+		checkpoint('footer.mobile');
 	}
-	
-	checkpoint("footer");
+		
+	checkpoint('footer');
 	
 	sql_close();
+	ob_flush();
 ?>

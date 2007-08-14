@@ -38,7 +38,8 @@ h1, h1 a {
 h1 {
 	font-size: 1.5em;
 	text-align: left;
-	padding: 10px 0 0 0 !important;
+	cursor: default;
+	display: inline;
 }
 
 h1:hover a {
@@ -188,7 +189,7 @@ code {
 
 #page {
 	background: #f3f3f3;
-	padding: 30px 0;
+	padding: 20px 0;
 	margin: 0;
 	border-top: 1px solid #ddd;
 }

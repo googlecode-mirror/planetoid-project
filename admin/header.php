@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<div id="header">
-			<h1><a href="<?=get_home_link()?>"><?=get_title()?></a> Administration</h1>
+			<h1><a href="<?=get_home_link()?>" title="Go to homepage"><?=get_title()?></a> Administration</h1>
 		</div>
 		<div id="menu">
 			<ul>

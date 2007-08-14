@@ -35,7 +35,7 @@ if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 						<br/>
 					<?php endif;endif; ?>
 					<h3>Planetoid Blog</h3>
-					<div class="info">We don't have a blog yet :)</div>
+					<div class="info">No blog yet :)</div>
 				</div>
 		</div>
 <?php

@@ -6,34 +6,34 @@
 	ini_set('session.use_only_cookies', 1);
 	session_name('planetoid_admin');
 	session_start();
-	
+
 	if($_GET['ajax'] == 'true') {
 		$ajax= true;
 	}
-	
+
 	if(isset($_SESSION['uid']) && $_SESSION['ulevel'] == 'admin') {
 		if(isset($_GET['dir'])) {
-			include('../config.php');
-			include('../planetoid.php');
+			require('../config.php');
+			require('../planetoid.php');
 			if($ajax) {
-				include('plugins-functions.php');
+				require('plugins-functions.php');
 			}
-			
+
 			$dir= sql_escape($_GET['dir']);
-			
+
 			sql_query("INSERT INTO settings VALUES (".sql_autoid('settings').", 'plugin_{$dir}:active', 'true');");
-			
+
 			if(file_exists("../inc/plugins/{$dir}/activate.php")) {
-				include_once("../inc/plugins/{$dir}/activate.php");
+				require_once("../inc/plugins/{$dir}/activate.php");
 			}
-			
+
 			if($ajax) {
 				$links= str_replace("'", "\'", generate_manage_links($dir));
 				echo "$('#{$dir}-row td:last').html('{$links}').parent().Highlight(500, '#64b31b');";
 			} else {
 				header("Location: {$_GET['r_to']}");
 			};
-			
+
 			sql_close();
 		} else {
 			if($ajax) {
